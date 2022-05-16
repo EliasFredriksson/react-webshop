@@ -1,0 +1,9 @@
+@use "../Colors.scss" as Colors;
+main {
+    flex-grow: 1;
+    background: linear-gradient(
+        to bottom,
+        Colors.$primary-one,
+        Colors.$primary-two
+    );
+}

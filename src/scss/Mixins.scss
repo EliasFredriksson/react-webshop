@@ -1,0 +1,19 @@
+// ################## Mixins.scss ##################
+@use "Variables" as Vars;
+
+// ########## BREAKPOINTS ##########
+@mixin breakpoint-mobile {
+    @media screen and (min-width: Vars.$breakpoint-mobile) {
+        @content;
+    }
+}
+@mixin breakpoint-tablet {
+    @media screen and (min-width: Vars.$breakpoint-tablet) {
+        @content;
+    }
+}
+@mixin breakpoint-desktop {
+    @media screen and (min-width: Vars.$breakpoint-desktop) {
+        @content;
+    }
+}

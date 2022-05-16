@@ -1,0 +1,5 @@
+@use "../Colors.scss" as Colors;
+
+header {
+    background-color: Colors.$primary-one;
+}

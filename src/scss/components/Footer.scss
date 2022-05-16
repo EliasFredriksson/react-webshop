@@ -1,0 +1,8 @@
+@use "../Colors.scss" as Colors;
+footer {
+    background: linear-gradient(
+        to bottom,
+        Colors.$primary-two,
+        Colors.$primary-one
+    );
+}
