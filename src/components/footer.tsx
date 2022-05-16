@@ -3,7 +3,7 @@ import "../scss/components/Footer.scss";
 export default function Footer() {
     return (
         <footer>
-            <h1>Footer</h1>
+            <h1>FOOTER</h1>
         </footer>
     );
 }
