@@ -1,0 +1,76 @@
+@use "../Colors.scss" as Colors;
+@use "../Mixins.scss" as Mixins;
+@use "../Variables.scss" as Vars;
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    .open-menu-button {
+        position: fixed;
+        left: 10px;
+        top: 10px;
+
+        height: 50px;
+        width: 50px;
+        font-size: Vars.$font-size-medium;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: Colors.$primary-one;
+        border-radius: 50%;
+        transition: 200ms ease;
+
+        &:hover {
+            background-color: Colors.$primary-one;
+            color: Colors.$accent-three;
+            cursor: pointer;
+        }
+    }
+
+    .menu {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(
+            to bottom,
+            Colors.$primary-five,
+            Colors.$accent-four
+        );
+
+        display: flex;
+        flex-direction: row;
+
+        transition: 200ms ease;
+
+        .__links {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+
+            .__buttons {
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: space-between;
+                padding-right: Vars.$spacing-medium;
+            }
+            span {
+                font-size: Vars.$font-size-large;
+                color: white;
+            }
+
+            a {
+                font-size: Vars.$font-size-medium;
+                text-align: center;
+            }
+        }
+    }
+
+    .open {
+        transform: translateX(0%);
+    }
+    .closed {
+        transform: translateX(-110%);
+    }
+}

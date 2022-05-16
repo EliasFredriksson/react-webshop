@@ -1,0 +1,50 @@
+@use "../Colors.scss" as Colors;
+@use "../Variables.scss" as Vars;
+
+main {
+    flex-grow: 1;
+    background: linear-gradient(
+        to bottom,
+        Colors.$primary-five,
+        Colors.$primary-two
+    );
+    display: flex;
+    flex-direction: column;
+    .not-found {
+        text-align: center;
+        flex-grow: 1;
+        margin: Vars.$spacing-large;
+        width: 100%;
+        height: 100%;
+        border-radius: Vars.$border-radius-medium;
+        background: linear-gradient(
+            to bottom,
+            Colors.$accent-one,
+            Colors.$primary-one
+        );
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .__go-back {
+            font-size: Vars.$font-size-medium;
+            text-decoration: none;
+            color: Colors.$primary-one;
+            background-color: Colors.$accent-three;
+            padding: Vars.$spacing-medium;
+            border-radius: Vars.$border-radius-medium;
+            transition: 200ms ease;
+            height: 50px;
+            width: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &:hover {
+                transform: scale(1.1) translateY(-2px);
+                filter: brightness(120%);
+            }
+        }
+    }
+}
