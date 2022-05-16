@@ -6,63 +6,110 @@ nav {
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 100;
 
-    .open-menu-button {
+    @include Mixins.breakpoint-tablet {
+        position: relative;
+    }
+
+    .menu-btn {
+        z-index: 98;
         position: fixed;
-        left: 10px;
-        top: 10px;
+        top: 5px;
+        left: 5px;
 
-        height: 50px;
-        width: 50px;
-        font-size: Vars.$font-size-medium;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: Colors.$primary-one;
-        border-radius: 50%;
-        transition: 200ms ease;
+        @include Mixins.button-square(50px);
 
-        &:hover {
-            background-color: Colors.$primary-one;
-            color: Colors.$accent-three;
-            cursor: pointer;
+        @include Mixins.breakpoint-mobile {
+            @include Mixins.button-square(100px);
+        }
+
+        @include Mixins.breakpoint-tablet {
+            display: none;
         }
     }
 
     .menu {
+        z-index: 99;
         position: absolute;
         width: 100vw;
         height: 100vh;
         background: linear-gradient(
             to bottom,
             Colors.$primary-five,
-            Colors.$accent-four
+            Colors.$accent-four,
+            Colors.$primary-five
         );
 
         display: flex;
         flex-direction: row;
 
-        transition: 200ms ease;
+        transition: 500ms ease;
+
+        @include Mixins.breakpoint-tablet {
+            position: relative;
+            height: auto;
+            width: auto;
+            transform: translateX(0%) !important;
+            background: none;
+            background-color: Colors.$primary-five;
+        }
 
         .__links {
             display: flex;
             flex-direction: column;
             flex-grow: 1;
 
+            @include Mixins.breakpoint-tablet {
+                flex-direction: row;
+                justify-content: center;
+            }
+
             .__buttons {
                 display: flex;
                 flex-direction: row-reverse;
                 justify-content: space-between;
+                align-items: center;
                 padding-right: Vars.$spacing-medium;
-            }
-            span {
-                font-size: Vars.$font-size-large;
-                color: white;
+                @include Mixins.breakpoint-tablet {
+                    display: none;
+                }
+
+                .menu-title {
+                    font-size: Vars.$font-size-large;
+                    color: white;
+                }
+
+                .menu-btn {
+                    @include Mixins.breakpoint-mobile {
+                        position: relative;
+                        top: -5px;
+                        left: 0;
+                    }
+                }
             }
 
             a {
+                padding: Vars.$spacing-small;
                 font-size: Vars.$font-size-medium;
                 text-align: center;
+                text-decoration: none;
+                color: white;
+                background: linear-gradient(
+                    to bottom,
+                    Colors.$accent-three,
+                    Colors.$accent-four
+                );
+                transition: 200ms ease;
+
+                @include Mixins.breakpoint-tablet {
+                    font-size: Vars.$font-size-small;
+                }
+
+                &:hover {
+                    filter: brightness(120%);
+                    transform: translateY(-4px);
+                }
             }
         }
     }

@@ -1,9 +1,11 @@
-import Home from "./pages/Home";
-
+// ### ROUTER ###
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+// ### PAGES ###
+import Home from "./pages/Home";
 import SingleMovie from "./pages/SingleMovie";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
+// ### COMPONENTS ###
 import Header from "./components/Header";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";

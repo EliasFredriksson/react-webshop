@@ -7,7 +7,7 @@ export default function NotFound() {
         <>
             <main>
                 <div className="not-found">
-                    <h1>Woops! Nothing here.</h1>
+                    <h1>Woops! 404</h1>
                     <Link to="/" className="__go-back">
                         ↻
                     </Link>

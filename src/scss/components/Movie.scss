@@ -11,7 +11,7 @@
     border-radius: Vars.$border-radius-small;
     padding: var(--movie-padding);
     width: 100%;
-    transition: 200ms ease;
+    transition: 500ms ease;
     background: linear-gradient(
         to bottom,
         Colors.$accent-two,
@@ -37,9 +37,19 @@
     }
 
     @include Mixins.breakpoint-mobile {
-        width: 32%;
+        width: 30%;
     }
     @include Mixins.breakpoint-tablet {
         width: 19%;
     }
+}
+
+.fade-in {
+    transform: translateY(20px);
+    opacity: 0;
+}
+
+.fade-in.appear {
+    transform: translateY(0px);
+    opacity: 1;
 }

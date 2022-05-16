@@ -6,12 +6,12 @@ interface IMovieProps {
 }
 
 export default function MovieDetailComponent(props: IMovieProps) {
-    const currentMovie = props.movieId;
+    const currentMovieId = props.movieId;
     const service = new MovieService();
 
     return (
         <div className="detailed-movie">
-            <h1>{currentMovie}</h1>
+            <h1>{currentMovieId}</h1>
         </div>
     );
 }

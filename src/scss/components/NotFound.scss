@@ -1,4 +1,5 @@
 @use "../Colors.scss" as Colors;
+@use "../Mixins.scss" as Mixins;
 @use "../Variables.scss" as Vars;
 
 main {
@@ -6,7 +7,7 @@ main {
     background: linear-gradient(
         to bottom,
         Colors.$primary-five,
-        Colors.$primary-two
+        Colors.$primary-five
     );
     display: flex;
     flex-direction: column;
@@ -28,23 +29,7 @@ main {
         align-items: center;
 
         .__go-back {
-            font-size: Vars.$font-size-medium;
-            text-decoration: none;
-            color: Colors.$primary-one;
-            background-color: Colors.$accent-three;
-            padding: Vars.$spacing-medium;
-            border-radius: Vars.$border-radius-medium;
-            transition: 200ms ease;
-            height: 50px;
-            width: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            &:hover {
-                transform: scale(1.1) translateY(-2px);
-                filter: brightness(120%);
-            }
+            @include Mixins.button-square(50px, Colors.$accent-three);
         }
     }
 }

@@ -7,11 +7,23 @@ main {
     background: linear-gradient(
         to bottom,
         Colors.$primary-five,
-        Colors.$primary-two
+        Colors.$primary-five
     );
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: Vars.$spacing-medium;
+
+    .search-bar {
+        @include Mixins.search-bar(100%);
+
+        @include Mixins.breakpoint-mobile {
+            width: 80%;
+        }
+        @include Mixins.breakpoint-tablet {
+            width: 40%;
+        }
+    }
 
     .movies-container {
         display: flex;

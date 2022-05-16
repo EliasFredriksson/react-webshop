@@ -19,14 +19,16 @@ export default function Navigation() {
 
     return (
         <nav>
-            <span className="open-menu-button" onClick={open}>
+            <span className="menu-btn" onClick={open}>
                 ☰
             </span>
             <div className={`menu ${getClassState()}`}>
                 <div className="__links">
                     <div className="__buttons">
-                        <span>Menu</span>
-                        <button onClick={close}>Close</button>
+                        <span className="menu-title">Menu</span>
+                        <span className="menu-btn" onClick={close}>
+                            🗙
+                        </span>
                     </div>
 
                     <Link to="/" onClick={close}>
