@@ -1,4 +1,4 @@
-import React, { FormEventHandler, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../scss/components/Main.scss";
 // ### INTERFACE ###
 import IMovie from "../interface/IMovie";
@@ -7,6 +7,7 @@ import Movie from "../models/Movie";
 import MovieService from "../services/MovieService";
 // ### COMPONENTS ###
 import MovieComponent from "./MovieComponent";
+import SearchBarComponent from "./SearchBarComponent";
 
 export default function MovieBrowse() {
     let currentMovies: Movie[] = [];
@@ -49,22 +50,16 @@ export default function MovieBrowse() {
             storeMovies(fetchedMovies);
         });
     }
-    function handleSubmit(e: React.SyntheticEvent) {
-        e.preventDefault();
-        fetchMovies(searchText);
-    }
 
     return (
         <main>
-            <form onSubmit={handleSubmit} className="search-bar">
-                <input
-                    type="text"
-                    onChange={(event) => {
-                        setSearchText(event.target.value);
-                    }}
-                />
-                <input type="submit" value="Search" />
-            </form>
+            <SearchBarComponent
+                searchText={searchText}
+                setText={setSearchText}
+                triggerFetch={() => {
+                    fetchMovies(searchText);
+                }}
+            ></SearchBarComponent>
             <div className="movies-container">
                 {movies.map((movie: Movie) => (
                     <MovieComponent

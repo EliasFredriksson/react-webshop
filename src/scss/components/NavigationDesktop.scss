@@ -1,0 +1,9 @@
+@use "../Mixins.scss" as Mixins;
+
+.desktop-nav {
+    display: none;
+
+    @include Mixins.breakpoint-tablet {
+        display: flex;
+    }
+}
