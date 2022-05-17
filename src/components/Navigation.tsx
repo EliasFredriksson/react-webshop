@@ -18,7 +18,7 @@ export default function Navigation() {
     }
 
     return (
-        <nav>
+        <nav className="mobile-nav">
             <span className="menu-btn" onClick={open}>
                 ☰
             </span>
@@ -26,7 +26,7 @@ export default function Navigation() {
                 <div className="__links">
                     <div className="__buttons">
                         <span className="menu-title">Menu</span>
-                        <span className="menu-btn" onClick={close}>
+                        <span className="menu-btn-close" onClick={close}>
                             🗙
                         </span>
                     </div>

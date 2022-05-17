@@ -20,17 +20,22 @@
 }
 
 // ########### STYLINGS ###########
-@mixin button-square($size, $background: rgba(black, 0), $color: white) {
+@mixin button-square(
+    $size,
+    $verticalOffset: 0px,
+    $color: white,
+    $background: rgba(black, 0)
+) {
     height: $size;
     width: $size;
     font-size: calc($size * 0.7);
     border-radius: calc($size * 0.2);
     color: $color;
     transition: 200ms ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: 200ms ease;
+
+    text-align: center;
+    padding-bottom: calc($size + $verticalOffset);
+
     text-shadow: 0px 0px calc($size * 0.1) black;
     background-color: $background;
     text-decoration: none;

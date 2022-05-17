@@ -29,7 +29,12 @@ main {
         align-items: center;
 
         .__go-back {
-            @include Mixins.button-square(50px, Colors.$accent-three);
+            @include Mixins.button-square(
+                50px,
+                0px,
+                white,
+                Colors.$accent-three
+            );
         }
     }
 }

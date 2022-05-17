@@ -6,14 +6,11 @@ import SingleMovie from "./pages/SingleMovie";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 // ### COMPONENTS ###
-import Header from "./components/Header";
 import Navigation from "./components/Navigation";
-import Footer from "./components/Footer";
 
 export default function App() {
     return (
         <BrowserRouter>
-            <Header></Header>
             <Navigation></Navigation>
             <Routes>
                 <Route path="/" element={<Home />}></Route>
@@ -21,7 +18,6 @@ export default function App() {
                 <Route path="/movies/:id" element={<SingleMovie />}></Route>
                 <Route path="*" element={<NotFound />} />
             </Routes>
-            <Footer></Footer>
         </BrowserRouter>
     );
 }

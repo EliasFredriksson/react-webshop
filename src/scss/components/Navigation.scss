@@ -2,14 +2,13 @@
 @use "../Mixins.scss" as Mixins;
 @use "../Variables.scss" as Vars;
 
-nav {
+.mobile-nav {
     position: fixed;
     top: 0;
     left: 0;
     z-index: 100;
-
     @include Mixins.breakpoint-tablet {
-        position: relative;
+        display: none;
     }
 
     .menu-btn {
@@ -22,10 +21,6 @@ nav {
 
         @include Mixins.breakpoint-mobile {
             @include Mixins.button-square(100px);
-        }
-
-        @include Mixins.breakpoint-tablet {
-            display: none;
         }
     }
 
@@ -43,27 +38,12 @@ nav {
 
         display: flex;
         flex-direction: row;
-
         transition: 500ms ease;
-
-        @include Mixins.breakpoint-tablet {
-            position: relative;
-            height: auto;
-            width: auto;
-            transform: translateX(0%) !important;
-            background: none;
-            background-color: Colors.$primary-five;
-        }
 
         .__links {
             display: flex;
             flex-direction: column;
             flex-grow: 1;
-
-            @include Mixins.breakpoint-tablet {
-                flex-direction: row;
-                justify-content: center;
-            }
 
             .__buttons {
                 display: flex;
@@ -80,11 +60,11 @@ nav {
                     color: white;
                 }
 
-                .menu-btn {
+                .menu-btn-close {
+                    position: relative;
+                    @include Mixins.button-square(50px, 5px);
                     @include Mixins.breakpoint-mobile {
-                        position: relative;
-                        top: -5px;
-                        left: 0;
+                        @include Mixins.button-square(100px, 10px);
                     }
                 }
             }
@@ -101,10 +81,6 @@ nav {
                     Colors.$accent-four
                 );
                 transition: 200ms ease;
-
-                @include Mixins.breakpoint-tablet {
-                    font-size: Vars.$font-size-small;
-                }
 
                 &:hover {
                     filter: brightness(120%);

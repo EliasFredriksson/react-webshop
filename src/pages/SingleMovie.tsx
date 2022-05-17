@@ -1,7 +1,9 @@
+// ### ROUTER ###
+import { useParams } from "react-router-dom";
 // ### COMPONENTS ###
 import MovieDetailComponent from "../components/MovieDetailComponent";
-
-import { useParams } from "react-router-dom";
+import HeaderComponent from "../components/HeaderComponent";
+import FooterComponent from "../components/FooterComponent";
 
 export default function SingleMovie() {
     const params = useParams();
@@ -13,7 +15,9 @@ export default function SingleMovie() {
     }
     return (
         <>
+            <HeaderComponent></HeaderComponent>
             <MovieDetailComponent movieId={movieId}></MovieDetailComponent>
+            <FooterComponent></FooterComponent>
         </>
     );
 }
