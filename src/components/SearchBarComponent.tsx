@@ -5,7 +5,6 @@ interface ISearchBarProps {
     searchText: string;
     setText: Function;
     triggerFetch: Function;
-    placeholder: string;
 }
 
 export default function SearchBarComponent(props: ISearchBarProps) {
@@ -15,7 +14,6 @@ export default function SearchBarComponent(props: ISearchBarProps) {
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
-                    console.log("KLJADFKJLF", entries);
                     entry.target.classList.toggle(
                         "is-pinned",
                         entry.intersectionRatio < 1
@@ -42,8 +40,9 @@ export default function SearchBarComponent(props: ISearchBarProps) {
                     props.setText(event.target.value);
                 }}
                 value={props.searchText}
-                placeholder={props.placeholder}
+                placeholder="Search for a movie!"
             />
+
             <input type="submit" value="Search" />
         </form>
     );

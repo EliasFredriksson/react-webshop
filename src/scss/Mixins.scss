@@ -47,7 +47,6 @@
     pointer-events: none;
     width: 100%;
     transition: 500ms ease;
-
     @content;
 
     input {
@@ -64,19 +63,24 @@
         }
     }
     input[type="text"] {
+        position: relative;
         border-top-left-radius: Vars.$border-radius-small;
         border-bottom-left-radius: Vars.$border-radius-small;
         flex-grow: 1;
         min-width: 0;
+        box-sizing: border-box;
+        letter-spacing: 1px;
     }
+
     input[type="submit"] {
         border-top-right-radius: Vars.$border-radius-small;
         border-bottom-right-radius: Vars.$border-radius-small;
-        background-color: Colors.$accent-one;
+        background-color: Colors.$accent-three;
         color: white;
         &:hover {
             cursor: pointer;
             filter: brightness(120%);
+            box-shadow: 0px 0px 5px 0px Colors.$accent-two;
         }
     }
 }

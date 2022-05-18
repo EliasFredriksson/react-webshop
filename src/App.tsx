@@ -12,7 +12,6 @@ import FooterComponent from "./components/FooterComponent";
 import NavigationDesktop from "./components/NavigationDesktop";
 
 export default function App() {
-    //  <PageTransitionComponent></PageTransitionComponent>
     return (
         <>
             <HeaderComponent></HeaderComponent>

@@ -1,4 +1,4 @@
-import "../scss/components/Main.scss";
+import "../scss/components/MovieBrowse.scss";
 
 // ### MOVIES ###
 import Movie from "../models/Movie";
@@ -21,7 +21,6 @@ export default function MovieBrowse(props: IMovieBrowse) {
                 searchText={props.searchText}
                 setText={props.setSearchText}
                 triggerFetch={props.triggerSearch}
-                placeholder="Search for a movie!"
             ></SearchBarComponent>
             <div className="movies-container">
                 {props.movies.map((movie: Movie) => (

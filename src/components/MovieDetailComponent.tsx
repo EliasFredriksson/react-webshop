@@ -28,7 +28,7 @@ export default function MovieDetailComponent(props: IMovieProps) {
             console.log("MOVIE: ", IMovie);
             setMovie(new Movie(IMovie));
         });
-    }, []);
+    });
 
     return (
         <div className="detailed-movie">

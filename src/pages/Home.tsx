@@ -1,5 +1,5 @@
 // ### COMPONENTS ###
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import MovieBrowse from "../components/MovieBrowse";
 import IMovie from "../interface/IMovie";
 import Movie from "../models/Movie";
@@ -7,13 +7,12 @@ import MovieService from "../services/MovieService";
 
 export default function Home() {
     const [movies, setMovies] = useState<Movie[]>([]);
-    const [searchText, setSearchText] = useState("star");
+    const [searchText, setSearchText] = useState("");
 
+    useCallback(fetchMovies, []);
     useEffect(() => {
         const storedMovies: Movie[] = getStoredMovies();
-        // console.log("STORED: ", storedMovies);
-        if (storedMovies.length <= 0) fetchMovies();
-        else setMovies(storedMovies);
+        if (storedMovies.length > 0) setMovies(storedMovies);
     }, []);
 
     // ##### LOCAL STORAGE #####

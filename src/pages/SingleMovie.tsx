@@ -8,7 +8,7 @@ export default function SingleMovie() {
     const movieIdParam: string | undefined = params.id;
     // console.log("PARAM: ", movieIdParam);
     let movieId: string = "";
-    if (movieIdParam != undefined) {
+    if (movieIdParam !== undefined) {
         movieId = movieIdParam;
     }
     return (
