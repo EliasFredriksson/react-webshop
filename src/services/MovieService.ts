@@ -1,23 +1,27 @@
 import axios from "axios";
 import IMovie from "../interface/IMovie";
-import IOmbdResponse from "../interface/IOmdb";
+import IOmbdResponse from "../interface/IOmdbResponse";
 
 export default class MovieService {
     KEY = "4c377e85";
     API = `http://www.omdbapi.com/?apikey=${this.KEY}&`;
 
-    public async getMovies(searchText: string): Promise<IMovie[]> {
+    public async getMovies(
+        searchText: string,
+        page: number = 1
+    ): Promise<IMovie[]> {
         const response = await axios.get<IOmbdResponse>(
-            this.API + `s=${searchText}`
+            this.API + `s=${searchText}&page=${page}`
         );
         // We use .data as it is a axiosResponse, and inside that is the IOmdbResponse.
         console.log(response.data);
         if (response.data.Response === "False") return [];
         return response.data.Search;
     }
-    public async getMovieById(Id: string): Promise<IMovie[]> {
-        const response = await axios.get<IOmbdResponse>(this.API + `i=${Id}`);
-        return response.data.Search;
+
+    public async getMovieById(Id: string): Promise<IMovie> {
+        const response = await axios.get<IMovie>(this.API + `i=${Id}`);
+        return response.data;
     }
 
     // public async getMoviesByName(name: string): Promise<IMovie[]> {

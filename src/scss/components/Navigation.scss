@@ -25,6 +25,8 @@
     }
 
     .menu {
+        --slide-speed: 700ms;
+
         z-index: 99;
         position: absolute;
         width: 100vw;
@@ -38,29 +40,62 @@
 
         display: flex;
         flex-direction: row;
-        transition: 500ms ease;
+        transition: var(--slide-speed) ease;
+
+        &.open {
+            transform: translateX(0%);
+        }
+        &.closed {
+            transform: translateX(-110%);
+            border-bottom-right-radius: 500px;
+            border-top-right-radius: 500px;
+        }
 
         .__links {
             display: flex;
             flex-direction: column;
             flex-grow: 1;
+            transition: var(--slide-speed) ease;
 
-            .__buttons {
+            &.fade-in {
+                opacity: 1;
+
+                .__top > .menu-title::after {
+                    width: 110%;
+                }
+            }
+            &.fade-out {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            .__top {
                 display: flex;
                 flex-direction: row-reverse;
                 justify-content: space-between;
                 align-items: center;
                 padding-right: Vars.$spacing-medium;
-                @include Mixins.breakpoint-tablet {
-                    display: none;
-                }
 
                 .menu-title {
+                    position: relative;
                     font-size: Vars.$font-size-large;
                     color: white;
+                    padding-right: Vars.$spacing-medium;
+
+                    &::after {
+                        transition: calc(var(--slide-speed) * 1.1) ease;
+                        position: absolute;
+                        bottom: 0.1em;
+                        right: 0;
+                        content: "";
+                        width: 0%;
+                        height: 3px;
+                        background-color: white;
+                        box-shadow: 0px 0px 5px 0px white;
+                    }
                 }
 
-                .menu-btn-close {
+                .close {
                     position: relative;
                     @include Mixins.button-square(50px, 5px);
                     @include Mixins.breakpoint-mobile {
@@ -69,10 +104,10 @@
                 }
             }
 
-            a {
+            .menu-link {
                 padding: Vars.$spacing-small;
                 font-size: Vars.$font-size-medium;
-                text-align: center;
+
                 text-decoration: none;
                 color: white;
                 background: linear-gradient(
@@ -80,20 +115,9 @@
                     Colors.$accent-three,
                     Colors.$accent-four
                 );
-                transition: 200ms ease;
 
-                &:hover {
-                    filter: brightness(120%);
-                    transform: translateY(-4px);
-                }
+                @include Mixins.hover-effect(white, white, white, white, 20%);
             }
         }
-    }
-
-    .open {
-        transform: translateX(0%);
-    }
-    .closed {
-        transform: translateX(-110%);
     }
 }

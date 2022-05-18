@@ -10,6 +10,8 @@ interface IMovieProps {
 export default function MovieComponent(props: IMovieProps) {
     const movie = props.movie;
     const [visible, setVisible] = useState(false);
+    const [fadedOut, setFadedOut] = useState(true);
+    const observerThreshold = 0.3;
 
     // ### REF ###
     // Reference to itself in the DOM. so we can change the class.
@@ -25,7 +27,7 @@ export default function MovieComponent(props: IMovieProps) {
                 });
             },
             {
-                threshold: 0.5,
+                threshold: observerThreshold,
             }
         );
         const { current } = movieRef;
@@ -38,12 +40,15 @@ export default function MovieComponent(props: IMovieProps) {
 
     function showCard() {
         setVisible(true);
+        setFadedOut(false);
     }
 
     return (
         <Link
             to={`/movies/${movie.imdbID}`}
-            className={`movie fade-in ${visible ? "appear" : ""}`}
+            className={`movie ${fadedOut ? "fade-in" : ""} ${
+                visible ? "appear" : ""
+            }`}
             ref={movieRef}
         >
             <div className="__poster">

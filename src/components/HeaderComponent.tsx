@@ -5,7 +5,7 @@ export default function HeaderComponent() {
     return (
         <header>
             <Link to="/" className="__title">
-                Netflix Store
+                Movie Shop
             </Link>
         </header>
     );

@@ -31,7 +31,6 @@
     font-size: calc($size * 0.7);
     border-radius: calc($size * 0.2);
     color: $color;
-    transition: 200ms ease;
 
     text-align: center;
     padding-bottom: calc($size + $verticalOffset);
@@ -40,18 +39,15 @@
     background-color: $background;
     text-decoration: none;
     @content;
-
-    &:hover {
-        filter: brightness(120%);
-        transform: scale(1.1);
-        cursor: pointer;
-        @content;
-    }
+    @include hover-effect(white, white, none, none, 90%, 1.1);
 }
 
-@mixin search-bar($width: 100%) {
+@mixin search-bar() {
     display: flex;
-    width: $width;
+    pointer-events: none;
+    width: 100%;
+    transition: 500ms ease;
+
     @content;
 
     input {
@@ -60,6 +56,8 @@
         font-family: Vars.$font-family-default;
         border: none;
         transition: 200ms ease;
+        pointer-events: all;
+        transition: 500ms ease;
 
         &:focus {
             outline: none;
@@ -69,6 +67,7 @@
         border-top-left-radius: Vars.$border-radius-small;
         border-bottom-left-radius: Vars.$border-radius-small;
         flex-grow: 1;
+        min-width: 0;
     }
     input[type="submit"] {
         border-top-right-radius: Vars.$border-radius-small;
@@ -79,5 +78,51 @@
             cursor: pointer;
             filter: brightness(120%);
         }
+    }
+}
+
+@mixin hover-effect(
+    $text-color: rgba(white, 1),
+    $glow-color: rgba(white, 1),
+    $underline-color: rgba(white, 0),
+    $underline-glow-color: rgba(white, 0),
+    $underline-width: 90%,
+    $scale: 1,
+    $translateY: 0px,
+    $translateX: 0px,
+    $speed: 300ms
+) {
+    // position: relative;
+    transition: $speed ease;
+    text-align: center;
+    @content;
+    &:hover {
+        text-shadow: 0px 0px 5px $glow-color;
+        color: $text-color;
+        filter: brightness(120%);
+        transform: scale($scale) translate($translateX, $translateY);
+        cursor: pointer;
+        @content;
+
+        &::after {
+            width: $underline-width;
+            left: calc((100% - $underline-width) / 2);
+        }
+    }
+
+    &:active {
+        transform: scale(calc($scale * 1.1)) translate($translateX, $translateY);
+    }
+
+    &::after {
+        transition: calc($speed * 0.5) ease;
+        position: absolute;
+        bottom: 15%;
+        left: 50%;
+        content: " ";
+        width: 0%;
+        height: 2px;
+        background-color: $underline-color;
+        box-shadow: 0px 0px 5px $underline-glow-color;
     }
 }

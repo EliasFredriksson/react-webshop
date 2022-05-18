@@ -4,12 +4,20 @@ import "../scss/components/Navigation.scss";
 
 export default function Navigation() {
     const [visible, setVisible] = useState(false);
+    const [faded, setFaded] = useState(true);
+    const animationDelay = 250;
 
     function close() {
-        setVisible(false);
+        setFaded(true);
+        setTimeout(() => {
+            setVisible(false);
+        }, animationDelay);
     }
     function open() {
         setVisible(true);
+        setTimeout(() => {
+            setFaded(false);
+        }, animationDelay);
     }
 
     function getClassState(): string {
@@ -23,18 +31,18 @@ export default function Navigation() {
                 ☰
             </span>
             <div className={`menu ${getClassState()}`}>
-                <div className="__links">
-                    <div className="__buttons">
+                <div className={`__links ${faded ? "fade-out" : "fade-in"}`}>
+                    <div className="__top">
                         <span className="menu-title">Menu</span>
-                        <span className="menu-btn-close" onClick={close}>
+                        <span className="menu-btn close" onClick={close}>
                             🗙
                         </span>
                     </div>
 
-                    <Link to="/" onClick={close}>
+                    <Link to="/" onClick={close} className="menu-link">
                         Home
                     </Link>
-                    <Link to="/about" onClick={close}>
+                    <Link to="/about" onClick={close} className="menu-link">
                         About
                     </Link>
                 </div>

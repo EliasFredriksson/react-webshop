@@ -2,7 +2,7 @@
 @use "../Mixins.scss" as Mixins;
 @use "../Variables.scss" as Vars;
 .movie {
-    --movie-height: 400px;
+    --movie-height: 20vh;
     --movie-padding: 10px;
 
     display: flex;
@@ -11,17 +11,28 @@
     border-radius: Vars.$border-radius-small;
     padding: var(--movie-padding);
     width: 100%;
-    transition: 500ms ease;
+
     background: linear-gradient(
         to bottom,
         Colors.$accent-two,
-        Colors.$primary-three
+        Colors.$primary-four
     );
 
-    &:hover {
-        filter: brightness(120%);
-        cursor: pointer;
-        transform: scale(1.03) translateY(-2px);
+    @include Mixins.hover-effect(
+        white,
+        white,
+        none,
+        none,
+        0%,
+        1.05,
+        0px,
+        0px,
+        500ms
+    );
+
+    &.fade-in {
+        transform: translateY(20px) scale(0.6);
+        opacity: 0;
     }
 
     .__poster {
@@ -37,19 +48,9 @@
     }
 
     @include Mixins.breakpoint-mobile {
-        width: 30%;
+        width: 235px;
     }
     @include Mixins.breakpoint-tablet {
         width: 19%;
     }
-}
-
-.fade-in {
-    transform: translateY(20px);
-    opacity: 0;
-}
-
-.fade-in.appear {
-    transform: translateY(0px);
-    opacity: 1;
 }

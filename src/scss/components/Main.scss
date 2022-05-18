@@ -16,22 +16,12 @@ main {
     align-items: center;
     gap: Vars.$spacing-medium;
 
-    .search-bar {
-        @include Mixins.search-bar(100%);
-
-        @include Mixins.breakpoint-mobile {
-            width: 80%;
-        }
-        @include Mixins.breakpoint-tablet {
-            width: 40%;
-        }
-    }
-
     .movies-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: Vars.$spacing-medium;
+        min-height: 80vh;
 
         @include Mixins.breakpoint-mobile {
             flex-direction: row;
