@@ -1,19 +1,31 @@
+import { useLayoutEffect, useState } from "react";
+import "../scss/components/Home.scss";
 // ### COMPONENTS ###
-import { useCallback, useEffect, useState } from "react";
 import MovieBrowse from "../components/MovieBrowse";
-import IMovie from "../interface/IMovie";
+import SearchBarComponent from "../components/SearchBarComponent";
+// ### MODELS ###
 import Movie from "../models/Movie";
+// ### INTERFACES ###
+import IMovie from "../interface/IMovie";
+// ### SERVICES ###
 import MovieService from "../services/MovieService";
+import PaginationComponent from "../components/PaginationComponent";
+import IOmbdResponse from "../interface/IOmdbResponse";
 
 export default function Home() {
+    const [page, setPage] = useState(1);
+    const [foundCount, setFoundCount] = useState(0);
     const [movies, setMovies] = useState<Movie[]>([]);
-    const [searchText, setSearchText] = useState("");
+    const [searchText, setSearchText] = useState("star");
+    const [foundMovies, setFoundMovies] = useState<boolean | undefined>(
+        undefined
+    );
 
-    useCallback(fetchMovies, []);
-    useEffect(() => {
+    useLayoutEffect(() => {
+        fetchMovies(searchText, page);
         const storedMovies: Movie[] = getStoredMovies();
         if (storedMovies.length > 0) setMovies(storedMovies);
-    }, []);
+    }, [page]);
 
     // ##### LOCAL STORAGE #####
     function getStoredMovies(): Movie[] {
@@ -31,33 +43,79 @@ export default function Home() {
     }
 
     // ##### API FETCH #####
-    async function fetchMovies(searchText: string = "star") {
+    async function fetchMovies(searchText: string = "star", page: number = 1) {
         const service = new MovieService();
-        service.getMovies(searchText).then((IMovies: IMovie[]) => {
-            // console.log("IMOVIES: ", IMovies);
-            let fetchedMovies: Movie[] = [];
-            IMovies.forEach((m) => {
-                fetchedMovies.push(new Movie(m));
-            });
+        setFoundMovies(undefined);
+        service.getMovies(searchText, page).then((response: IOmbdResponse) => {
+            if (response.Response === "False") {
+                setMovies([]);
+                setFoundMovies(false);
+            } else {
+                const IMovies = response.Search;
+                let fetchedMovies: Movie[] = [];
+                IMovies.forEach((m) => {
+                    fetchedMovies.push(new Movie(m));
+                });
 
-            setMovies(fetchedMovies);
-            storeMovies(fetchedMovies);
+                setFoundCount(parseInt(response.totalResults));
+                setMovies(fetchedMovies);
+                setFoundMovies(true);
+                storeMovies(fetchedMovies);
+            }
         });
     }
 
     function triggerFetch() {
         setMovies([]);
-        fetchMovies(searchText);
+        fetchMovies(searchText, page);
+        setPage(1);
     }
-
-    return (
+    // ### DEFAULT (LOADING...) ###
+    let html = (
         <>
-            <MovieBrowse
-                movies={movies}
-                triggerSearch={triggerFetch}
+            <SearchBarComponent
                 searchText={searchText}
-                setSearchText={setSearchText}
-            ></MovieBrowse>
+                setText={setSearchText}
+                triggerFetch={triggerFetch}
+            ></SearchBarComponent>
+            <div className="__loader"></div>
         </>
     );
+    // ### NO MOVIES FOUND ###
+    if (foundMovies === false) {
+        html = (
+            <>
+                <SearchBarComponent
+                    searchText={searchText}
+                    setText={setSearchText}
+                    triggerFetch={triggerFetch}
+                ></SearchBarComponent>
+                <h1 className="__no-result">
+                    <span>No result...</span>
+                    <span>Try again!</span>
+                </h1>
+            </>
+        );
+    }
+    // ### MOVIES FOUND ###
+    else if (foundMovies === true) {
+        html = (
+            <>
+                <SearchBarComponent
+                    searchText={searchText}
+                    setText={setSearchText}
+                    triggerFetch={triggerFetch}
+                ></SearchBarComponent>
+                {/* <p className="__total-result">Total result: {foundCount}</p> */}
+                <PaginationComponent
+                    currentPage={page}
+                    setPage={setPage}
+                    foundCount={foundCount}
+                ></PaginationComponent>
+                <MovieBrowse movies={movies}></MovieBrowse>
+            </>
+        );
+    }
+
+    return <main className="movie-browser">{html}</main>;
 }

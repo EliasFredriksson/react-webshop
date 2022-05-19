@@ -1,39 +1,26 @@
 @use "../Colors.scss" as Colors;
 @use "../Variables.scss" as Vars;
 @use "../Mixins.scss" as Mixins;
-main {
-    padding: Vars.$spacing-medium;
-    flex-grow: 1;
+
+.movies-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: Vars.$spacing-medium;
+    flex-grow: 1;
 
-    .movies-container {
-        // border: 2px solid white;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: Vars.$spacing-medium;
-        min-height: 80vh;
+    @include Mixins.breakpoint-mobile {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+    }
 
-        @include Mixins.breakpoint-mobile {
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: flex-start;
-        }
+    @include Mixins.breakpoint-tablet {
+        width: 80%;
+    }
 
-        @include Mixins.breakpoint-tablet {
-            width: 80%;
-        }
-
-        @include Mixins.breakpoint-desktop {
-            width: 75%;
-        }
-
-        @include Mixins.breakpoint-desktop-large {
-            width: 60%;
-        }
+    @include Mixins.breakpoint-desktop {
+        width: 80%;
     }
 }

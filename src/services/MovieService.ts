@@ -10,14 +10,14 @@ export default class MovieService {
     public async getMovies(
         searchText: string,
         page: number = 1
-    ): Promise<IMovie[]> {
+    ): Promise<IOmbdResponse> {
         const response = await axios.get<IOmbdResponse>(
             this.API + `s=${searchText}&page=${page}`
         );
         // We use .data as it is a axiosResponse, and inside that is the IOmdbResponse.
-        console.log(response.data);
-        if (response.data.Response === "False") return [];
-        return response.data.Search;
+        // console.log("RAW: ", response);
+        // console.log("DATA: ", response.data);
+        return response.data;
     }
 
     public async getMovieById(Id: string): Promise<IMovieDetailed> {

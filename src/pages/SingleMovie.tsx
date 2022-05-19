@@ -1,5 +1,5 @@
 // ### ROUTER ###
-import { useCallback, useLayoutEffect, useMemo, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 // ### COMPONENTS ###
 import MovieDetailComponent from "../components/MovieDetailComponent";

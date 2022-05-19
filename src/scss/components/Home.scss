@@ -1,0 +1,63 @@
+@use "../Colors.scss" as Colors;
+@use "../Mixins.scss" as Mixins;
+@use "../Variables.scss" as Vars;
+
+.movie-browser {
+    padding: Vars.$spacing-medium;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: Vars.$spacing-medium;
+
+    .__no-result {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+        color: white;
+    }
+
+    .__loader {
+        --speed: 3000ms;
+        margin-top: 100px;
+
+        @include Mixins.spinner(
+            100px,
+            5px,
+            var(--speed),
+            Colors.$accent-two,
+            rgba(#fff, 0)
+        );
+
+        &::after {
+            content: " ";
+            position: absolute;
+            @include Mixins.spinner(
+                90px,
+                5px,
+                var(--speed),
+                Colors.$accent-two,
+                rgba(#fff, 0)
+            );
+        }
+        &::before {
+            content: " ";
+            position: absolute;
+            @include Mixins.spinner(
+                80px,
+                5px,
+                calc(var(--speed) / 2),
+                Colors.$accent-two,
+                rgba(#fff, 0)
+            );
+        }
+    }
+    .__total-result {
+        position: relative;
+        color: white;
+        font-size: Vars.$font-size-small;
+        text-shadow: 0px 0px 5px white;
+    }
+}

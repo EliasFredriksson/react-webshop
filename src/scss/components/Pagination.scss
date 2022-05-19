@@ -1,0 +1,65 @@
+@use "../Colors.scss" as Colors;
+@use "../Mixins.scss" as Mixins;
+@use "../Variables.scss" as Vars;
+
+.pagination {
+    transition: 500ms ease;
+    display: flex;
+    justify-content: center;
+
+    color: white;
+
+    width: 100%;
+
+    span {
+        // flex-grow: 1;
+
+        min-width: 0;
+        width: 100%;
+        font-size: Vars.$font-size-small;
+        padding: 8px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background: linear-gradient(
+            to bottom,
+            Colors.$primary-five,
+            Colors.$accent-two
+        );
+
+        &.current-page {
+            background: linear-gradient(
+                to top,
+                Colors.$primary-five,
+                Colors.$accent-two
+            );
+        }
+        &.__selectable {
+            @include Mixins.hover-effect(
+                white,
+                white,
+                white,
+                white,
+                40%,
+                1,
+                -4px
+            );
+        }
+
+        @include Mixins.breakpoint-desktop {
+            font-size: Vars.$font-size-medium;
+        }
+    }
+
+    @include Mixins.breakpoint-mobile {
+        width: 84%;
+    }
+    @include Mixins.breakpoint-tablet {
+        width: 60%;
+    }
+    @include Mixins.breakpoint-desktop {
+        width: 40%;
+    }
+}

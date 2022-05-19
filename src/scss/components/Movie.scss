@@ -56,12 +56,9 @@
     }
 
     @include Mixins.breakpoint-mobile {
-        --poster-width: 30vw;
+        --poster-width: 40vw;
     }
     @include Mixins.breakpoint-tablet {
-        --poster-width: 23vw;
-    }
-    @include Mixins.breakpoint-desktop-large {
         --poster-width: 14vw;
     }
 }
