@@ -3,7 +3,7 @@ import "../scss/components/Header.scss";
 
 export default function HeaderComponent() {
     return (
-        <header>
+        <header id="scroll-to-top">
             <Link to="/" className="__title">
                 Omdb
             </Link>

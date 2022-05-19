@@ -39,7 +39,7 @@ export default function PaginationComponent(props: IPaginationComponent) {
     let html = (
         <>
             <span
-                className="__selectable"
+                className="__arrow"
                 onClick={() => {
                     handleArrow(-1);
                 }}
@@ -80,7 +80,7 @@ export default function PaginationComponent(props: IPaginationComponent) {
             {getAfter()}
 
             <span
-                className="__selectable"
+                className="__arrow"
                 onClick={() => {
                     handleArrow(1);
                 }}

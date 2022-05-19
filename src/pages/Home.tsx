@@ -106,13 +106,17 @@ export default function Home() {
                     setText={setSearchText}
                     triggerFetch={triggerFetch}
                 ></SearchBarComponent>
-                {/* <p className="__total-result">Total result: {foundCount}</p> */}
+
                 <PaginationComponent
                     currentPage={page}
                     setPage={setPage}
                     foundCount={foundCount}
                 ></PaginationComponent>
+                <p className="__total-result">Total hits: {foundCount}</p>
                 <MovieBrowse movies={movies}></MovieBrowse>
+                <a className="__scroll-top-button" href="#scroll-to-top">
+                    <span>⮉</span>
+                </a>
             </>
         );
     }
