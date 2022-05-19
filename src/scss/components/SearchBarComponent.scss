@@ -43,4 +43,12 @@
             transform: translateX(100%);
         }
     }
+    @include Mixins.breakpoint-desktop-large {
+        input {
+            font-size: Vars.$font-size-medium;
+        }
+        &.is-pinned {
+            border-top: 10px solid rgba($color: #000000, $alpha: 0);
+        }
+    }
 }

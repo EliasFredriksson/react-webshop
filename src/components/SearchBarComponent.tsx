@@ -40,7 +40,7 @@ export default function SearchBarComponent(props: ISearchBarProps) {
                     props.setText(event.target.value);
                 }}
                 value={props.searchText}
-                placeholder="Search for a movie!"
+                placeholder="Search for any media!"
             />
 
             <input type="submit" value="Search" />

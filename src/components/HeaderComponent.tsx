@@ -5,7 +5,7 @@ export default function HeaderComponent() {
     return (
         <header>
             <Link to="/" className="__title">
-                Movie Shop
+                Omdb
             </Link>
         </header>
     );

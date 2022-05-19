@@ -10,6 +10,7 @@ main {
     gap: Vars.$spacing-medium;
 
     .movies-container {
+        // border: 2px solid white;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -19,7 +20,20 @@ main {
         @include Mixins.breakpoint-mobile {
             flex-direction: row;
             flex-wrap: wrap;
-            justify-content: space-between;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        @include Mixins.breakpoint-tablet {
+            width: 80%;
+        }
+
+        @include Mixins.breakpoint-desktop {
+            width: 75%;
+        }
+
+        @include Mixins.breakpoint-desktop-large {
+            width: 60%;
         }
     }
 }

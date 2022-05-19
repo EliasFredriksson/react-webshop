@@ -18,6 +18,11 @@
         @content;
     }
 }
+@mixin breakpoint-desktop-large {
+    @media screen and (min-width: Vars.$breakpoint-desktop-large) {
+        @content;
+    }
+}
 
 // ########### STYLINGS ###########
 @mixin button-square(

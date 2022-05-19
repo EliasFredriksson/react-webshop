@@ -2,15 +2,18 @@
 @use "../Mixins.scss" as Mixins;
 @use "../Variables.scss" as Vars;
 .movie {
-    --movie-height: 20vh;
-    --movie-padding: 10px;
+    --movie-padding: 8px;
+    --poster-width: 270px;
+    --poster-height: calc(var(--poster-width) * 1.48);
 
     display: flex;
     flex-direction: column;
     align-items: center;
+
     border-radius: Vars.$border-radius-small;
     padding: var(--movie-padding);
-    width: 100%;
+    width: var(--poster-width);
+    height: var(--poster-height);
 
     background: linear-gradient(
         to bottom,
@@ -36,21 +39,29 @@
     }
 
     .__poster {
+        flex-grow: 1;
+        min-height: 0px;
         width: 100%;
         display: flex;
-        place-items: center;
+        justify-content: center;
+        align-items: center;
         img {
+            box-shadow: 0px 0px 5px 0px black;
             width: 100%;
-            height: 350px;
+            height: 100%;
+
             object-fit: cover;
             object-position: center;
         }
     }
 
     @include Mixins.breakpoint-mobile {
-        width: 235px;
+        --poster-width: 30vw;
     }
     @include Mixins.breakpoint-tablet {
-        width: 19%;
+        --poster-width: 23vw;
+    }
+    @include Mixins.breakpoint-desktop-large {
+        --poster-width: 14vw;
     }
 }

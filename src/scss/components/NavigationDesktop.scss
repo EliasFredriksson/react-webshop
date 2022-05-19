@@ -52,5 +52,11 @@
             0px,
             300ms
         );
+
+        @include Mixins.breakpoint-desktop-large {
+            flex-basis: 200px;
+            padding: Vars.$spacing-large;
+            font-size: Vars.$font-size-medium;
+        }
     }
 }
