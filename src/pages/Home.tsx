@@ -16,7 +16,7 @@ export default function Home() {
     const [page, setPage] = useState(1);
     const [foundCount, setFoundCount] = useState(0);
     const [movies, setMovies] = useState<Movie[]>([]);
-    const [searchText, setSearchText] = useState("star");
+    const [searchText, setSearchText] = useState("Star Wars");
     const [foundMovies, setFoundMovies] = useState<boolean | undefined>(
         undefined
     );
