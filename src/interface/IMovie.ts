@@ -4,4 +4,5 @@ export default interface IMovie {
     Type: string;
     Year: string;
     imdbID: string;
+    Error: string;
 }

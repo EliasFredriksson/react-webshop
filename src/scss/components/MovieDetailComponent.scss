@@ -1,3 +1,13 @@
+@use "../Colors.scss" as Colors;
+@use "../Variables.scss" as Vars;
+@use "../Mixins.scss" as Mixins;
+
 .detailed-movie {
-    background-color: white;
+    flex-grow: 1;
+    background: linear-gradient(
+        to bottom,
+        Colors.$primary-five,
+        Colors.$accent-five,
+        Colors.$primary-five
+    );
 }

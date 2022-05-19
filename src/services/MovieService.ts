@@ -1,5 +1,6 @@
 import axios from "axios";
 import IMovie from "../interface/IMovie";
+import IMovieDetailed from "../interface/IMovieDetailed";
 import IOmbdResponse from "../interface/IOmdbResponse";
 
 export default class MovieService {
@@ -19,8 +20,8 @@ export default class MovieService {
         return response.data.Search;
     }
 
-    public async getMovieById(Id: string): Promise<IMovie> {
-        const response = await axios.get<IMovie>(this.API + `i=${Id}`);
+    public async getMovieById(Id: string): Promise<IMovieDetailed> {
+        const response = await axios.get<IMovieDetailed>(this.API + `i=${Id}`);
         return response.data;
     }
 
