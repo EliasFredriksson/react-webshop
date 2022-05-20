@@ -96,6 +96,7 @@ export default function SingleMovie() {
                 exited={() => {
                     setMovie(BLANK_DETAILED_MOVIE);
                     setMovieLoaded(false);
+                    sessionStorage.setItem("historyBack", "true");
                 }}
             ></MovieDetailComponent>
         </>

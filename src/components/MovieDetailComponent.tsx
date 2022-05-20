@@ -69,8 +69,24 @@ export default function MovieDetailComponent(props: IMovieProps) {
                                     key={entry[0]}
                                     className={"__" + entry[0].toLowerCase()}
                                 >
-                                    <span className="__label">{entry[0]}</span>
-                                    <span>{entry[1]}</span>
+                                    <span className="__label">
+                                        {entry[0] === "totalSeasons" ? (
+                                            <>Seasons</>
+                                        ) : (
+                                            <>{entry[0]}</>
+                                        )}
+                                    </span>
+
+                                    <span>
+                                        <>
+                                            {entry[1]}
+                                            {entry[0] === "Metascore" ? (
+                                                <span>/100</span>
+                                            ) : (
+                                                <></>
+                                            )}
+                                        </>
+                                    </span>
                                 </div>
                             );
                         })}

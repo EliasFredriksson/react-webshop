@@ -13,23 +13,25 @@ import PaginationComponent from "../components/PaginationComponent";
 import IOmbdResponse from "../interface/IOmdbResponse";
 
 export default function Home() {
-    const [page, setPage] = useState(1);
-    const [foundCount, setFoundCount] = useState(0);
+    const [page, setPage] = useState<number>(1);
+    const [searchText, setSearchText] = useState("");
     const [movies, setMovies] = useState<Movie[]>([]);
-    const [searchText, setSearchText] = useState("Star Wars");
-    const [foundMovies, setFoundMovies] = useState<boolean | undefined>(
-        undefined
-    );
-    const [justStarted, setStarted] = useState(true);
+    const [foundCount, setFoundCount] = useState<number | undefined>(undefined);
 
     useLayoutEffect(() => {
-        if (justStarted) {
-            fetchMovies(searchText, page);
-            setStarted(false);
+        const isHistoryBack = sessionStorage.getItem("historyBack");
+        if (isHistoryBack === "true") {
+            sessionStorage.setItem("historyBack", "false");
+            const storedPage = sessionStorage.getItem("lastPage");
+            const storedSearch = sessionStorage.getItem("lastSearch");
+            const foundCount = sessionStorage.getItem("foundCount");
+            if (storedPage) setPage(parseInt(storedPage));
+            if (storedSearch) setSearchText(storedSearch);
+            if (foundCount) setFoundCount(parseInt(foundCount));
+            const storedMovies = getStoredMovies();
+            setMovies(storedMovies);
         } else {
-            const storedMovies: Movie[] = getStoredMovies();
-            if (storedMovies.length > 0) setMovies(storedMovies);
-            else fetchMovies(searchText, page);
+            triggerFetch();
         }
     }, [page]); // We add page to observed list. (It will run if page changes.)
 
@@ -44,38 +46,38 @@ export default function Home() {
         }
         return [];
     }
-    function storeMovies(movies: Movie[]): void {
+    function storeMovies(): void {
         localStorage.setItem("movies", JSON.stringify(movies));
     }
 
     // ##### API FETCH #####
     async function fetchMovies(searchText: string = "star", page: number = 1) {
         const service = new MovieService();
-        setFoundMovies(undefined);
         service.getMovies(searchText, page).then((response: IOmbdResponse) => {
             if (response.Response === "False") {
                 setMovies([]);
-                setFoundMovies(false);
                 setFoundCount(0);
+                storeMovies();
+                sessionStorage.setItem("foundCount", "0");
             } else {
                 const IMovies = response.Search;
                 let fetchedMovies: Movie[] = [];
                 IMovies.forEach((m) => {
                     fetchedMovies.push(new Movie(m));
                 });
-
-                setFoundCount(parseInt(response.totalResults));
                 setMovies(fetchedMovies);
-                setFoundMovies(true);
-                storeMovies(fetchedMovies);
+                setFoundCount(parseInt(response.totalResults));
+                storeMovies();
+                sessionStorage.setItem("foundCount", response.totalResults);
             }
         });
     }
 
-    function triggerFetch() {
+    function triggerFetch(searchTerm: string = searchText) {
+        sessionStorage.setItem("lastSearch", searchTerm);
+        sessionStorage.setItem("lastPage", page.toString());
         setMovies([]);
-        fetchMovies(searchText, page);
-        setPage(1);
+        fetchMovies(searchTerm, page);
     }
     // ### DEFAULT (LOADING...) ###
     let html = (
@@ -89,43 +91,45 @@ export default function Home() {
         </>
     );
     // ### NO MOVIES FOUND ###
-    if (foundMovies === false) {
-        html = (
-            <>
-                <SearchBarComponent
-                    searchText={searchText}
-                    setText={setSearchText}
-                    triggerFetch={triggerFetch}
-                ></SearchBarComponent>
-                <h1 className="__no-result">
-                    <span>No result...</span>
-                    <span>Try again!</span>
-                </h1>
-            </>
-        );
-    }
-    // ### MOVIES FOUND ###
-    else if (foundMovies === true) {
-        html = (
-            <>
-                <SearchBarComponent
-                    searchText={searchText}
-                    setText={setSearchText}
-                    triggerFetch={triggerFetch}
-                ></SearchBarComponent>
+    if (foundCount !== undefined) {
+        if (foundCount <= 0) {
+            html = (
+                <>
+                    <SearchBarComponent
+                        searchText={searchText}
+                        setText={setSearchText}
+                        triggerFetch={triggerFetch}
+                    ></SearchBarComponent>
+                    <h1 className="__no-result">
+                        <span>No result...</span>
+                        <span>Try again!</span>
+                    </h1>
+                </>
+            );
+        }
+        // ### MOVIES FOUND ###
+        else if (foundCount > 0) {
+            html = (
+                <>
+                    <SearchBarComponent
+                        searchText={searchText}
+                        setText={setSearchText}
+                        triggerFetch={triggerFetch}
+                    ></SearchBarComponent>
 
-                <PaginationComponent
-                    currentPage={page}
-                    setPage={setPage}
-                    foundCount={foundCount}
-                ></PaginationComponent>
-                <p className="__total-result">Total hits: {foundCount}</p>
-                <MovieBrowse movies={movies}></MovieBrowse>
-                <a className="__scroll-top-button" href="#scroll-to-top">
-                    <span>⮉</span>
-                </a>
-            </>
-        );
+                    <PaginationComponent
+                        currentPage={page}
+                        setPage={setPage}
+                        foundCount={foundCount}
+                    ></PaginationComponent>
+                    <p className="__total-result">Total hits: {foundCount}</p>
+                    <MovieBrowse movies={movies}></MovieBrowse>
+                    <a className="__scroll-top-button" href="#scroll-to-top">
+                        <span>⮉</span>
+                    </a>
+                </>
+            );
+        }
     }
 
     return <div className="movie-browser">{html}</div>;

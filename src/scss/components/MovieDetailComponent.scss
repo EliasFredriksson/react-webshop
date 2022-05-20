@@ -16,6 +16,9 @@
         span {
             @include Mixins.button-square(100px, 0px, white);
         }
+        @include Mixins.breakpoint-tablet {
+            width: 60%;
+        }
     }
 
     .__information {
@@ -28,8 +31,8 @@
             gap: Vars.$spacing-large;
         }
 
-        div {
-            @include Mixins.display-flex(column);
+        @include Mixins.breakpoint-tablet {
+            width: 60%;
         }
 
         .__left {
@@ -87,6 +90,9 @@
         .__right {
             @include Mixins.display-flex(column);
             gap: Vars.$spacing-medium;
+            div {
+                @include Mixins.display-flex(column);
+            }
 
             .__runtime,
             .__metascore,

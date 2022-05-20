@@ -39,6 +39,13 @@
             transform: translateX(calc(49vw - 50%));
         }
     }
+
+    @include Mixins.breakpoint-desktop {
+        &.is-pinned {
+            top: 5px;
+        }
+    }
+
     @include Mixins.breakpoint-desktop-large {
         input {
             font-size: Vars.$font-size-medium;
@@ -46,6 +53,9 @@
         button[type="submit"] {
             width: 100px;
             font-size: calc(Vars.$font-size-medium * 1.5);
+        }
+        &.is-pinned {
+            top: 9px;
         }
     }
 }

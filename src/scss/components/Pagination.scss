@@ -55,10 +55,11 @@
         top: 100px;
     }
     @include Mixins.breakpoint-tablet {
-        top: 6em;
+        top: 60px;
         width: 60%;
     }
     @include Mixins.breakpoint-desktop {
+        top: 90px;
         width: 40%;
     }
 }
