@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import "../scss/components/Home.scss";
 // ### COMPONENTS ###
 import MovieBrowse from "../components/MovieBrowse";
@@ -20,11 +20,17 @@ export default function Home() {
     const [foundMovies, setFoundMovies] = useState<boolean | undefined>(
         undefined
     );
+    const [justStarted, setStarted] = useState(true);
 
     useLayoutEffect(() => {
-        fetchMovies(searchText, page);
-        const storedMovies: Movie[] = getStoredMovies();
-        if (storedMovies.length > 0) setMovies(storedMovies);
+        if (justStarted) {
+            fetchMovies(searchText, page);
+            setStarted(false);
+        } else {
+            const storedMovies: Movie[] = getStoredMovies();
+            if (storedMovies.length > 0) setMovies(storedMovies);
+            else fetchMovies(searchText, page);
+        }
     }, [page]); // We add page to observed list. (It will run if page changes.)
 
     // ##### LOCAL STORAGE #####

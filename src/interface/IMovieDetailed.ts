@@ -19,4 +19,5 @@ export default interface IMovieDetailed {
     Released: string;
     BoxOffice: string;
     Rated: string;
+    totalSeasons: string;
 }

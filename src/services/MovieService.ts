@@ -1,5 +1,5 @@
 import axios from "axios";
-import IMovie from "../interface/IMovie";
+// import IMovie from "../interface/IMovie";
 import IMovieDetailed from "../interface/IMovieDetailed";
 import IOmbdResponse from "../interface/IOmdbResponse";
 

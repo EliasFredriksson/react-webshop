@@ -2,31 +2,12 @@
 @use "../Variables.scss" as Vars;
 @use "../Mixins.scss" as Mixins;
 
-.detailed-movie {
-    border: 2px solid blue;
+.detailed-media {
     flex-grow: 1;
     @include Mixins.display-flex(column, flex-start, center);
 
-    .__movie {
-        background: linear-gradient(
-            to bottom,
-            Colors.$accent-two,
-            Colors.$primary-four
-        );
-        pointer-events: none;
-
-        @include Mixins.movie();
-
-        .__poster {
-            box-shadow: none;
-        }
-
-        .__info {
-            @include Mixins.breakpoint-tablet {
-                opacity: 1;
-                transform: translateX(0%);
-            }
-        }
+    * {
+        color: white;
     }
 
     .__back {
@@ -35,5 +16,96 @@
         span {
             @include Mixins.button-square(100px, 0px, white);
         }
+    }
+
+    .__information {
+        padding: Vars.$spacing-large;
+        gap: Vars.$spacing-small;
+        @include Mixins.display-flex(column);
+
+        @include Mixins.breakpoint-mobile {
+            flex-direction: row;
+            gap: Vars.$spacing-large;
+        }
+
+        div {
+            @include Mixins.display-flex(column);
+        }
+
+        .__left {
+            @include Mixins.display-flex(column, flex-start, center);
+            gap: Vars.$spacing-large;
+            .__media {
+                background: linear-gradient(
+                    to bottom,
+                    Colors.$accent-two,
+                    Colors.$primary-four
+                );
+                pointer-events: none;
+
+                @include Mixins.movie();
+
+                .__poster {
+                    box-shadow: none;
+                }
+
+                .__info {
+                    @include Mixins.breakpoint-tablet {
+                        opacity: 1;
+                        transform: translateX(0%);
+                    }
+                }
+            }
+            .__title {
+                font-size: Vars.$font-size-medium;
+                text-align: center;
+                text-shadow: 0px 0px 10px white;
+            }
+            .__type {
+                text-shadow: 0px 0px 10px white;
+            }
+        }
+
+        .__seperator {
+            @include Mixins.display-flex();
+            padding: 3px;
+            background: linear-gradient(
+                to right,
+                Colors.$accent-five,
+                Colors.$accent-two,
+                Colors.$accent-five
+            );
+            @include Mixins.breakpoint-mobile {
+                background: linear-gradient(
+                    to bottom,
+                    Colors.$accent-two,
+                    Colors.$accent-five
+                );
+            }
+        }
+
+        .__right {
+            @include Mixins.display-flex(column);
+            gap: Vars.$spacing-medium;
+
+            .__runtime,
+            .__metascore,
+            .__released,
+            .__boxoffice,
+            .__rated,
+            .__year,
+            .__totalseasons,
+            .__genre {
+                @include Mixins.display-flex(row, space-between);
+            }
+
+            .__label {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .__loader {
+        @include Mixins.loader();
     }
 }

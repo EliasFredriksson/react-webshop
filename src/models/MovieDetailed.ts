@@ -20,6 +20,7 @@ export default class MovieDetailed {
     Released: string = "";
     BoxOffice: string = "";
     Rated: string = "";
+    totalSeasons: string = "";
 
     constructor(movie: IMovieDetailed) {
         // ### STANDARD ###
@@ -41,5 +42,6 @@ export default class MovieDetailed {
         this.Released = movie.Released;
         this.BoxOffice = movie.BoxOffice;
         this.Rated = movie.Rated;
+        this.totalSeasons = movie.totalSeasons;
     }
 }

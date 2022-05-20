@@ -27,9 +27,11 @@ const BLANK_DETAILED_MOVIE = {
     Released: "",
     BoxOffice: "",
     Rated: "",
+    totalSeasons: "",
 };
 
 export default function SingleMovie() {
+    const [movieLoaded, setMovieLoaded] = useState(false);
     const [movie, setMovie] = useState<MovieDetailed>(
         new MovieDetailed(BLANK_DETAILED_MOVIE)
     );
@@ -55,6 +57,7 @@ export default function SingleMovie() {
         localStorage.setItem("singleMovie", JSON.stringify(movie));
     }
     async function getMovie() {
+        console.log("\n\n ############# FETCH OCCURED ############# \n\n");
         service.getMovieById(movieId).then((IMovieDetailed: IMovieDetailed) => {
             if (IMovieDetailed.Error) {
                 const errorMovie = new MovieDetailed({
@@ -70,6 +73,7 @@ export default function SingleMovie() {
                 setMovie(foundMovie);
                 storeMovie(foundMovie);
             }
+            setMovieLoaded(true);
         });
     }
     useLayoutEffect(() => {
@@ -77,6 +81,7 @@ export default function SingleMovie() {
         if (storedMovie.imdbID === movieId) {
             // console.log("STORED MOVIE MATCHED");
             setMovie(storedMovie);
+            setMovieLoaded(true);
         } else {
             // console.log("STORED MOVIE DID NOT MATCH");
             getMovie();
@@ -85,7 +90,14 @@ export default function SingleMovie() {
 
     return (
         <>
-            <MovieDetailComponent movie={movie}></MovieDetailComponent>
+            <MovieDetailComponent
+                movie={movie}
+                movieLoaded={movieLoaded}
+                exited={() => {
+                    setMovie(BLANK_DETAILED_MOVIE);
+                    setMovieLoaded(false);
+                }}
+            ></MovieDetailComponent>
         </>
     );
 }
