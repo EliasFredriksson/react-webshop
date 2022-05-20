@@ -3,11 +3,37 @@
 @use "../Mixins.scss" as Mixins;
 
 .detailed-movie {
+    border: 2px solid blue;
     flex-grow: 1;
-    background: linear-gradient(
-        to bottom,
-        Colors.$primary-five,
-        Colors.$accent-five,
-        Colors.$primary-five
-    );
+    @include Mixins.display-flex(column, flex-start, center);
+
+    .__movie {
+        background: linear-gradient(
+            to bottom,
+            Colors.$accent-two,
+            Colors.$primary-four
+        );
+        pointer-events: none;
+
+        @include Mixins.movie();
+
+        .__poster {
+            box-shadow: none;
+        }
+
+        .__info {
+            @include Mixins.breakpoint-tablet {
+                opacity: 1;
+                transform: translateX(0%);
+            }
+        }
+    }
+
+    .__back {
+        width: 100%;
+        @include Mixins.display-flex();
+        span {
+            @include Mixins.button-square(100px, 0px, white);
+        }
+    }
 }

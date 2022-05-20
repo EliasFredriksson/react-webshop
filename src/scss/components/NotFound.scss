@@ -9,8 +9,9 @@ main {
         Colors.$primary-five,
         Colors.$primary-five
     );
-    display: flex;
-    flex-direction: column;
+
+    @include Mixins.display-flex(column);
+
     .not-found {
         text-align: center;
         flex-grow: 1;
@@ -24,9 +25,7 @@ main {
             Colors.$primary-one
         );
 
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        @include Mixins.display-flex(column, flex-start, center);
 
         .__go-back {
             @include Mixins.button-square(

@@ -1,9 +1,4 @@
-// import Movie from "../models/Movie";
-import MovieService from "../services/MovieService";
-import IMovie from "../interface/IMovie";
-import { useEffect, useState } from "react";
 import "../scss/components/MovieDetailComponent.scss";
-import Movie from "../models/Movie";
 import MovieDetailed from "../models/MovieDetailed";
 
 interface IMovieProps {
@@ -11,13 +6,22 @@ interface IMovieProps {
 }
 
 export default function MovieDetailComponent(props: IMovieProps) {
-    console.log(props.movie);
+    console.table(props.movie);
 
     return (
         <div className="detailed-movie">
-            <h1>{props.movie.Title}</h1>
-            <div className="poster">
-                <img src={props.movie.Poster} alt="" />
+            <div
+                className="__back"
+                onClick={() => {
+                    window.history.back();
+                }}
+            >
+                <span>⇦</span>
+            </div>
+            <div className="__movie">
+                <div className="__poster">
+                    <img src={props.movie.Poster} alt={props.movie.Title} />
+                </div>
             </div>
         </div>
     );

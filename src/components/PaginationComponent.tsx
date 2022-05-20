@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../scss/components/Pagination.scss";
 
 interface IPaginationComponent {
@@ -9,12 +9,9 @@ interface IPaginationComponent {
 
 export default function PaginationComponent(props: IPaginationComponent) {
     const amountOfPages = Math.ceil(props.foundCount / 10);
-    const visibleTabs = 5;
+    const visibleTabs = Math.min(5, amountOfPages);
     let showMin = true;
     let showMax = true;
-
-    // for (let index = currentPage; index < currentPage + visibleTabs; index++) {}
-    // console.log("CURRENT PAGE: ", currentPage, "\n\n");
     let activeTabs: number[] = [];
     let offset = 0;
     for (let index = 0; index < visibleTabs; index++) {
@@ -28,13 +25,8 @@ export default function PaginationComponent(props: IPaginationComponent) {
     activeTabs = activeTabs.map((n) => {
         return n + offset;
     });
-    if (offset > 0) {
-        showMin = false;
-    }
-
-    if (offset < 0) {
-        showMax = false;
-    }
+    if (offset > 0 || amountOfPages === visibleTabs) showMin = false;
+    if (offset < 0 || amountOfPages === visibleTabs) showMax = false;
 
     let html = (
         <>
@@ -97,8 +89,9 @@ export default function PaginationComponent(props: IPaginationComponent) {
         }
     }
     function handleClick(pageNumber: number) {
-        console.log(pageNumber);
+        // console.log(pageNumber);
         props.setPage(pageNumber);
+        window.scrollTo(0, 0);
     }
 
     function getBefore() {

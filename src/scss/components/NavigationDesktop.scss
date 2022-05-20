@@ -18,8 +18,7 @@
 
     @include Mixins.breakpoint-tablet {
         display: flex;
-        position: sticky;
-        top: -2px;
+        @include Mixins.position(sticky, -2px);
     }
 
     &.is-pinned {
@@ -29,7 +28,8 @@
     a {
         flex-grow: 0;
         flex-basis: 100px;
-        position: relative;
+        @include Mixins.position(relative);
+
         padding: Vars.$spacing-medium;
         font-size: Vars.$font-size-small;
         text-decoration: none;

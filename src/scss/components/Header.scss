@@ -9,13 +9,12 @@ header {
         Colors.$accent-three
     );
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    @include Mixins.display-flex(column, flex-start, center);
     text-align: center;
 
     .__title {
-        position: relative;
+        @include Mixins.position(relative);
+
         padding: Vars.$spacing-medium;
         margin: 0;
         font-size: Vars.$font-size-large;
@@ -40,10 +39,8 @@ header {
         }
 
         &::after {
+            @include Mixins.position(absolute, none, 50%, 20px, none);
             content: " ";
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
             width: 0%;
             height: 2px;
             background-color: Colors.$accent-one;

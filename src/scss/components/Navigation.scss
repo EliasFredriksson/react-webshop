@@ -3,9 +3,7 @@
 @use "../Variables.scss" as Vars;
 
 .mobile-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
+    @include Mixins.position(fixed, 0, 0);
     z-index: 100;
     @include Mixins.breakpoint-tablet {
         display: none;
@@ -13,12 +11,8 @@
 
     .menu-btn {
         z-index: 98;
-        position: fixed;
-        top: 5px;
-        left: 5px;
-
+        @include Mixins.position(fixed, 5px, 5px);
         @include Mixins.button-square(50px);
-
         @include Mixins.breakpoint-mobile {
             @include Mixins.button-square(100px);
         }
@@ -28,7 +22,7 @@
         --slide-speed: 700ms;
 
         z-index: 99;
-        position: absolute;
+        @include Mixins.position(absolute);
         width: 100vw;
         height: 100vh;
         background: linear-gradient(
@@ -38,8 +32,7 @@
             Colors.$primary-five
         );
 
-        display: flex;
-        flex-direction: row;
+        @include Mixins.display-flex();
         transition: var(--slide-speed) ease;
 
         &.open {
@@ -52,14 +45,12 @@
         }
 
         .__links {
-            display: flex;
-            flex-direction: column;
+            @include Mixins.display-flex(column);
             flex-grow: 1;
             transition: var(--slide-speed) ease;
 
             &.fade-in {
                 opacity: 1;
-
                 .__top > .menu-title::after {
                     width: 110%;
                 }
@@ -70,24 +61,32 @@
             }
 
             .__top {
-                display: flex;
-                flex-direction: row-reverse;
-                justify-content: space-between;
+                @include Mixins.display-flex(
+                    row-reverse,
+                    space-between,
+                    center
+                );
                 align-items: center;
                 padding-right: Vars.$spacing-medium;
 
                 .menu-title {
-                    position: relative;
+                    @include Mixins.position(relative);
+
                     font-size: Vars.$font-size-large;
                     color: white;
                     padding-right: Vars.$spacing-medium;
 
                     &::after {
-                        transition: calc(var(--slide-speed) * 1.1) ease;
-                        position: absolute;
-                        bottom: 0.1em;
-                        right: 0;
+                        @include Mixins.position(
+                            absolute,
+                            none,
+                            none,
+                            0.1em,
+                            0px
+                        );
+
                         content: "";
+                        transition: calc(var(--slide-speed) * 1.1) ease;
                         width: 0%;
                         height: 3px;
                         background-color: white;
@@ -96,7 +95,7 @@
                 }
 
                 .close {
-                    position: relative;
+                    @include Mixins.position(relative);
                     @include Mixins.button-square(50px, 5px);
                     @include Mixins.breakpoint-mobile {
                         @include Mixins.button-square(100px, 10px);

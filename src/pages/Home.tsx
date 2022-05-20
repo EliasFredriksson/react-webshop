@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import "../scss/components/Home.scss";
 // ### COMPONENTS ###
 import MovieBrowse from "../components/MovieBrowse";
@@ -25,7 +25,7 @@ export default function Home() {
         fetchMovies(searchText, page);
         const storedMovies: Movie[] = getStoredMovies();
         if (storedMovies.length > 0) setMovies(storedMovies);
-    }, [page]);
+    }, [page]); // We add page to observed list. (It will run if page changes.)
 
     // ##### LOCAL STORAGE #####
     function getStoredMovies(): Movie[] {
@@ -50,6 +50,7 @@ export default function Home() {
             if (response.Response === "False") {
                 setMovies([]);
                 setFoundMovies(false);
+                setFoundCount(0);
             } else {
                 const IMovies = response.Search;
                 let fetchedMovies: Movie[] = [];
@@ -121,5 +122,5 @@ export default function Home() {
         );
     }
 
-    return <main className="movie-browser">{html}</main>;
+    return <div className="movie-browser">{html}</div>;
 }

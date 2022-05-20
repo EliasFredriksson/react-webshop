@@ -54,6 +54,7 @@ export default function MovieComponent(props: IMovieProps) {
             <div className="__poster">
                 <img src={movie.Poster} alt={movie.Title} />
             </div>
+            <span className="__info">{movie.Title}</span>
         </Link>
     );
 }

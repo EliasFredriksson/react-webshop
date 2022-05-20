@@ -20,7 +20,7 @@ export default function SearchBarComponent(props: ISearchBarProps) {
                     );
                 });
             },
-            { threshold: 1 }
+            { threshold: 1, rootMargin: "-50px 0px 0px 0px" }
         );
         const { current } = ref;
         if (!current) return;
@@ -43,7 +43,9 @@ export default function SearchBarComponent(props: ISearchBarProps) {
                 placeholder="Search for any media!"
             />
 
-            <input type="submit" value="Search" />
+            <button type="submit">
+                <span>⚲</span>
+            </button>
         </form>
     );
 }

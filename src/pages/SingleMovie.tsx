@@ -38,29 +38,49 @@ export default function SingleMovie() {
     const movieIdParam: string | undefined = params.id;
     const service = new MovieService();
 
-    // console.log("PARAM: ", movieIdParam);
     let movieId: string = "";
     if (movieIdParam !== undefined) {
         movieId = movieIdParam;
     }
+
+    function getStoredMovie(): MovieDetailed {
+        let storedData = localStorage.getItem("singleMovie");
+        if (storedData) {
+            let IMovieDetailed: IMovieDetailed = JSON.parse(storedData);
+            return new MovieDetailed(IMovieDetailed);
+        }
+        return new MovieDetailed(BLANK_DETAILED_MOVIE);
+    }
+    function storeMovie(movie: MovieDetailed): void {
+        localStorage.setItem("singleMovie", JSON.stringify(movie));
+    }
     async function getMovie() {
         service.getMovieById(movieId).then((IMovieDetailed: IMovieDetailed) => {
             if (IMovieDetailed.Error) {
-                setMovie(
-                    new MovieDetailed({
-                        ...BLANK_DETAILED_MOVIE,
-                        Title: `!!! ERROR !!!`,
-                        imdbID: `${movieId}`,
-                        Error: IMovieDetailed.Error,
-                    })
-                );
+                const errorMovie = new MovieDetailed({
+                    ...BLANK_DETAILED_MOVIE,
+                    Title: `!!! ERROR !!!`,
+                    imdbID: `${movieId}`,
+                    Error: IMovieDetailed.Error,
+                });
+                setMovie(errorMovie);
+                storeMovie(errorMovie);
             } else {
-                setMovie(new MovieDetailed(IMovieDetailed));
+                const foundMovie = new MovieDetailed(IMovieDetailed);
+                setMovie(foundMovie);
+                storeMovie(foundMovie);
             }
         });
     }
     useLayoutEffect(() => {
-        getMovie();
+        const storedMovie = getStoredMovie();
+        if (storedMovie.imdbID === movieId) {
+            // console.log("STORED MOVIE MATCHED");
+            setMovie(storedMovie);
+        } else {
+            // console.log("STORED MOVIE DID NOT MATCH");
+            getMovie();
+        }
     }, []);
 
     return (
