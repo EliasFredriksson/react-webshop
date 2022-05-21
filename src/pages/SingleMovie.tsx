@@ -1,5 +1,5 @@
 // ### ROUTER ###
-import { useLayoutEffect, useState } from "react";
+import { useContext, useLayoutEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 // ### COMPONENTS ###
 import MovieDetailComponent from "../components/MovieDetailComponent";
@@ -8,6 +8,8 @@ import IMovieDetailed from "../interface/IMovieDetailed";
 import MovieDetailed from "../models/MovieDetailed";
 // ### SERVICES ###
 import MovieService from "../services/MovieService";
+// ### CONTEXT ###
+import { AppContext } from "../App";
 
 const BLANK_DETAILED_MOVIE = {
     Title: "",
@@ -40,6 +42,8 @@ export default function SingleMovie() {
     const movieIdParam: string | undefined = params.id;
     const service = new MovieService();
 
+    const context = useContext(AppContext);
+
     let movieId: string = "";
     if (movieIdParam !== undefined) {
         movieId = movieIdParam;
@@ -57,7 +61,7 @@ export default function SingleMovie() {
         localStorage.setItem("singleMovie", JSON.stringify(movie));
     }
     async function getMovie() {
-        console.log("\n\n ############# FETCH OCCURED ############# \n\n");
+        // console.log("\n\n ############# FETCH OCCURED ############# \n\n");
         service.getMovieById(movieId).then((IMovieDetailed: IMovieDetailed) => {
             if (IMovieDetailed.Error) {
                 const errorMovie = new MovieDetailed({
@@ -96,7 +100,7 @@ export default function SingleMovie() {
                 exited={() => {
                     setMovie(BLANK_DETAILED_MOVIE);
                     setMovieLoaded(false);
-                    sessionStorage.setItem("historyBack", "true");
+                    context.backFromSingleMovie = true;
                 }}
             ></MovieDetailComponent>
         </>

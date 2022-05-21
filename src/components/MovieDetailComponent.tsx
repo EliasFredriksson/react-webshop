@@ -7,6 +7,9 @@ interface IMovieProps {
     exited: Function;
 }
 
+const EXCLUDE_VALUES = ["N/A", undefined, ""];
+const EXCLUDE_KEYS = ["Poster", "imdbID", "Type", "Error", "Title"];
+
 export default function MovieDetailComponent(props: IMovieProps) {
     let html = <></>;
     const typeString =
@@ -16,16 +19,51 @@ export default function MovieDetailComponent(props: IMovieProps) {
     let prop: keyof typeof props.movie;
     for (prop in props.movie) {
         let value = props.movie[prop];
-        if (
-            value !== "N/A" &&
-            value !== undefined &&
-            prop !== "Poster" &&
-            prop !== "imdbID" &&
-            prop !== "Title" &&
-            prop !== "Type"
-        ) {
-            validMedia.push([prop, value]);
+        let key = prop.toString();
+        if (EXCLUDE_KEYS.includes(key) || EXCLUDE_VALUES.includes(value)) {
+        } else validMedia.push([prop, value]);
+    }
+
+    window.onpopstate = () => {
+        props.exited();
+    };
+
+    function getInfoLabel(entry: string[]) {
+        let text = "";
+        const key = entry[0];
+        switch (key) {
+            case "Year":
+                text = "Released";
+                break;
+            case "totalSeasons":
+                text = "Seasons";
+                break;
+            default:
+                text = entry[0];
+                break;
         }
+        return (
+            <>
+                <span className="__label">{text}</span>
+            </>
+        );
+    }
+    function getInfoValue(entry: string[]) {
+        let text = "";
+        const key = entry[0];
+        switch (key) {
+            case "metaScore":
+                text = entry[1] + "/100";
+                break;
+            default:
+                text = entry[1];
+                break;
+        }
+        return (
+            <>
+                <span>{text}</span>
+            </>
+        );
     }
 
     if (!props.movieLoaded) {
@@ -69,24 +107,16 @@ export default function MovieDetailComponent(props: IMovieProps) {
                                     key={entry[0]}
                                     className={"__" + entry[0].toLowerCase()}
                                 >
-                                    <span className="__label">
-                                        {entry[0] === "totalSeasons" ? (
-                                            <>Seasons</>
-                                        ) : (
-                                            <>{entry[0]}</>
-                                        )}
-                                    </span>
-
-                                    <span>
-                                        <>
-                                            {entry[1]}
-                                            {entry[0] === "Metascore" ? (
-                                                <span>/100</span>
-                                            ) : (
-                                                <></>
-                                            )}
-                                        </>
-                                    </span>
+                                    <>
+                                        {(function () {
+                                            return getInfoLabel(entry);
+                                        })()}
+                                    </>
+                                    <>
+                                        {(function () {
+                                            return getInfoValue(entry);
+                                        })()}
+                                    </>
                                 </div>
                             );
                         })}

@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useContext, useLayoutEffect, useState } from "react";
 import "../scss/components/Home.scss";
 // ### COMPONENTS ###
 import MovieBrowse from "../components/MovieBrowse";
@@ -11,94 +11,94 @@ import IMovie from "../interface/IMovie";
 import MovieService from "../services/MovieService";
 import PaginationComponent from "../components/PaginationComponent";
 import IOmbdResponse from "../interface/IOmdbResponse";
+// ### CONTEXT ###
+import { AppContext } from "../App";
+
+const BLANK_MEDIA: IMovie = {
+    Title: "",
+    Type: "",
+    Poster: "",
+    Year: "",
+    imdbID: "",
+    Error: "",
+};
 
 export default function Home() {
-    const [page, setPage] = useState<number>(1);
-    const [searchText, setSearchText] = useState("");
-    const [movies, setMovies] = useState<Movie[]>([]);
-    const [foundCount, setFoundCount] = useState<number | undefined>(undefined);
+    const [page, setPage] = useState(1);
+    const [searchText, setSearchText] = useState("Star Wars");
+    const [movies, setMovies] = useState<Movie[] | undefined>(undefined);
+    const [foundCount, setFoundCount] = useState<number>(0);
+
+    // ### ACCESS TO APP CONTEXT ###
+    const context = useContext(AppContext);
 
     useLayoutEffect(() => {
-        const isHistoryBack = sessionStorage.getItem("historyBack");
-        if (isHistoryBack === "true") {
-            sessionStorage.setItem("historyBack", "false");
-            const storedPage = sessionStorage.getItem("lastPage");
-            const storedSearch = sessionStorage.getItem("lastSearch");
-            const foundCount = sessionStorage.getItem("foundCount");
-            if (storedPage) setPage(parseInt(storedPage));
-            if (storedSearch) setSearchText(storedSearch);
-            if (foundCount) setFoundCount(parseInt(foundCount));
-            const storedMovies = getStoredMovies();
-            setMovies(storedMovies);
-        } else {
-            triggerFetch();
-        }
-    }, [page]); // We add page to observed list. (It will run if page changes.)
-
-    // ##### LOCAL STORAGE #####
-    function getStoredMovies(): Movie[] {
-        let storedData = localStorage.getItem("movies");
-        if (storedData) {
-            let IMovies: IMovie[] = JSON.parse(storedData);
-            return IMovies.map((m: IMovie) => {
-                return new Movie(m);
-            });
-        }
-        return [];
-    }
-    function storeMovies(): void {
-        localStorage.setItem("movies", JSON.stringify(movies));
-    }
+        if (context.backFromSingleMovie) {
+            context.backFromSingleMovie = false;
+            fetchMovies(context.searchHistory, context.pageHistory);
+        } else fetchMovies(searchText, page);
+    }, []);
 
     // ##### API FETCH #####
-    async function fetchMovies(searchText: string = "star", page: number = 1) {
+    async function fetchMovies(searchText: string, page: number) {
         const service = new MovieService();
-        service.getMovies(searchText, page).then((response: IOmbdResponse) => {
-            if (response.Response === "False") {
-                setMovies([]);
-                setFoundCount(0);
-                storeMovies();
-                sessionStorage.setItem("foundCount", "0");
-            } else {
-                const IMovies = response.Search;
-                let fetchedMovies: Movie[] = [];
-                IMovies.forEach((m) => {
-                    fetchedMovies.push(new Movie(m));
-                });
-                setMovies(fetchedMovies);
-                setFoundCount(parseInt(response.totalResults));
-                storeMovies();
-                sessionStorage.setItem("foundCount", response.totalResults);
-            }
-        });
+        service
+            .getMovies(searchText.trim(), page)
+            .then((response: IOmbdResponse) => {
+                if (response.Response === "False") {
+                    setMovies([]);
+                    setFoundCount(0);
+                    context.countHistory = 0;
+                } else {
+                    const IMovies = response.Search;
+                    let fetchedMovies = IMovies.map((m) => {
+                        return new Movie({ ...BLANK_MEDIA, ...m });
+                    });
+                    setMovies(fetchedMovies);
+                    setFoundCount(parseInt(response.totalResults));
+                    context.countHistory = parseInt(response.totalResults);
+                }
+                context.searchHistory = searchText;
+                context.pageHistory = page;
+                setSearchText(searchText);
+                setPage(page);
+            });
     }
 
-    function triggerFetch(searchTerm: string = searchText) {
-        sessionStorage.setItem("lastSearch", searchTerm);
-        sessionStorage.setItem("lastPage", page.toString());
-        setMovies([]);
-        fetchMovies(searchTerm, page);
+    function triggerSearch() {
+        if (searchText !== context.searchHistory) {
+            setMovies(undefined);
+            fetchMovies(searchText, 1);
+        }
     }
+
+    function triggerPageChange(nextPage: number) {
+        if (nextPage !== page) {
+            setMovies(undefined);
+            fetchMovies(searchText, nextPage);
+        }
+    }
+
     // ### DEFAULT (LOADING...) ###
     let html = (
         <>
             <SearchBarComponent
                 searchText={searchText}
                 setText={setSearchText}
-                triggerFetch={triggerFetch}
+                triggerFetch={triggerSearch}
             ></SearchBarComponent>
             <div className="__loader"></div>
         </>
     );
-    // ### NO MOVIES FOUND ###
-    if (foundCount !== undefined) {
-        if (foundCount <= 0) {
+
+    if (movies) {
+        if (movies.length <= 0) {
             html = (
                 <>
                     <SearchBarComponent
                         searchText={searchText}
                         setText={setSearchText}
-                        triggerFetch={triggerFetch}
+                        triggerFetch={triggerSearch}
                     ></SearchBarComponent>
                     <h1 className="__no-result">
                         <span>No result...</span>
@@ -108,27 +108,32 @@ export default function Home() {
             );
         }
         // ### MOVIES FOUND ###
-        else if (foundCount > 0) {
+        else if (movies.length > 0) {
             html = (
                 <>
                     <SearchBarComponent
                         searchText={searchText}
                         setText={setSearchText}
-                        triggerFetch={triggerFetch}
+                        triggerFetch={triggerSearch}
                     ></SearchBarComponent>
 
                     <PaginationComponent
                         currentPage={page}
-                        setPage={setPage}
+                        setPage={triggerPageChange}
                         foundCount={foundCount}
                     ></PaginationComponent>
-                    <p className="__total-result">Total hits: {foundCount}</p>
+                    <p className="__total-result">
+                        "{context.searchHistory.trim()}" gave {foundCount} hits.
+                    </p>
                     <MovieBrowse movies={movies}></MovieBrowse>
                     <a className="__scroll-top-button" href="#scroll-to-top">
                         <span>⮉</span>
                     </a>
                 </>
             );
+            setTimeout(() => {
+                window.scrollTo(0, context.windowY);
+            }, 0);
         }
     }
 

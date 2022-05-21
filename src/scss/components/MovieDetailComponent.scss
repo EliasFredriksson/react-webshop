@@ -92,7 +92,11 @@
             gap: Vars.$spacing-medium;
             div {
                 @include Mixins.display-flex(column);
+
+                font-family: Vars.$font-family-default;
             }
+            max-width: 100%;
+            min-width: 0px;
 
             .__runtime,
             .__metascore,
@@ -100,8 +104,7 @@
             .__boxoffice,
             .__rated,
             .__year,
-            .__totalseasons,
-            .__genre {
+            .__totalseasons {
                 @include Mixins.display-flex(row, space-between);
             }
 

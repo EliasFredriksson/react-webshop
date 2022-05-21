@@ -10,10 +10,29 @@ import Navigation from "./components/Navigation";
 import HeaderComponent from "./components/HeaderComponent";
 import FooterComponent from "./components/FooterComponent";
 import NavigationDesktop from "./components/NavigationDesktop";
+import { createContext } from "react";
+
+// ####### CONTEXT #######
+interface IAppContext {
+    searchHistory: string;
+    pageHistory: number;
+    countHistory: number;
+    backFromSingleMovie: boolean;
+    windowY: number;
+}
+const ContextData: IAppContext = {
+    searchHistory: "",
+    pageHistory: 1,
+    countHistory: 0,
+    backFromSingleMovie: false,
+    windowY: 0,
+};
+export const AppContext = createContext<IAppContext>(ContextData);
+// ########################
 
 export default function App() {
     return (
-        <>
+        <AppContext.Provider value={ContextData}>
             <HeaderComponent></HeaderComponent>
             <NavigationDesktop></NavigationDesktop>
             <Navigation></Navigation>
@@ -24,6 +43,6 @@ export default function App() {
                 <Route path="*" element={<NotFound />} />
             </Routes>
             <FooterComponent></FooterComponent>
-        </>
+        </AppContext.Provider>
     );
 }

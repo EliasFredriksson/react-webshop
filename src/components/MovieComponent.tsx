@@ -1,5 +1,6 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useContext, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { AppContext } from "../App";
 import Movie from "../models/Movie";
 import "../scss/components/Movie.scss";
 
@@ -12,6 +13,10 @@ export default function MovieComponent(props: IMovieProps) {
     const [visible, setVisible] = useState(false);
     const [fadedOut, setFadedOut] = useState(true);
     const observerThreshold = 0.3;
+
+    const imgRef = useRef<HTMLImageElement>(null);
+
+    const context = useContext(AppContext);
 
     // ### REF ###
     // Reference to itself in the DOM. so we can change the class.
@@ -43,6 +48,15 @@ export default function MovieComponent(props: IMovieProps) {
         setFadedOut(false);
     }
 
+    function handleClick() {
+        context.windowY = window.visualViewport.pageTop;
+    }
+
+    function handleError() {
+        const { current } = imgRef;
+        if (current) current.src = "/Missing_Poster.png";
+    }
+
     return (
         <Link
             to={`/movies/${movie.imdbID}`}
@@ -50,9 +64,15 @@ export default function MovieComponent(props: IMovieProps) {
                 visible ? "appear" : ""
             }`}
             ref={movieRef}
+            onClick={handleClick}
         >
             <div className="__poster">
-                <img src={movie.Poster} alt={movie.Title} />
+                <img
+                    src={movie.Poster}
+                    alt={movie.Title}
+                    onError={handleError}
+                    ref={imgRef}
+                />
             </div>
             <span className="__info">{movie.Title}</span>
         </Link>
