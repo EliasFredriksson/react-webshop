@@ -75,6 +75,7 @@ export default function Home() {
     function triggerPageChange(nextPage: number) {
         if (nextPage !== page) {
             setMovies(undefined);
+            // context.windowY = 0;
             fetchMovies(searchText, nextPage);
         }
     }

@@ -52,6 +52,10 @@ footer {
                     Colors.$primary-one
                 );
             }
+
+            @include Mixins.breakpoint-desktop-large {
+                font-size: Vars.$font-size-large;
+            }
         }
     }
 }
