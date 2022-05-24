@@ -3,8 +3,8 @@ import "../scss/components/SearchBarComponent.scss";
 
 interface ISearchBarProps {
     searchText: string;
-    setText: Function;
-    triggerFetch: Function;
+    setText(text: string): void;
+    triggerFetch(): void;
 }
 
 export default function SearchBarComponent(props: ISearchBarProps) {
@@ -44,7 +44,7 @@ export default function SearchBarComponent(props: ISearchBarProps) {
             />
 
             <button type="submit">
-                <span>⚲</span>
+                <i className="fa-solid fa-magnifying-glass"></i>
             </button>
         </form>
     );

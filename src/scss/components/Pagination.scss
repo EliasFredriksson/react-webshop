@@ -59,7 +59,10 @@
         width: 60%;
     }
     @include Mixins.breakpoint-desktop {
-        top: 90px;
+        top: 60px;
         width: 40%;
+    }
+    @include Mixins.breakpoint-desktop-large {
+        top: 90px;
     }
 }

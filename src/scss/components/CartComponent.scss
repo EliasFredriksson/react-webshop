@@ -1,0 +1,16 @@
+@use "../Variables.scss" as Vars;
+@use "../Colors.scss" as Colors;
+@use "../Mixins.scss" as Mixins;
+
+.cart {
+    z-index: 98;
+    @include Mixins.position(fixed, 5px, none, none, 5px);
+    @include Mixins.button-square(50px);
+    @include Mixins.breakpoint-mobile {
+        @include Mixins.button-square(100px);
+    }
+
+    @include Mixins.breakpoint-tablet {
+        display: none;
+    }
+}

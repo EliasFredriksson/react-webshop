@@ -3,12 +3,10 @@
 @use "../Mixins.scss" as Mixins;
 
 .detailed-media {
+    transition: opacity 1s ease;
+    opacity: 1;
     flex-grow: 1;
     @include Mixins.display-flex(column, flex-start, center);
-
-    * {
-        color: white;
-    }
 
     .__back {
         width: 100%;
@@ -22,6 +20,8 @@
     }
 
     .__information {
+        color: white;
+
         padding: Vars.$spacing-large;
         gap: Vars.$spacing-small;
         @include Mixins.display-flex(column);
@@ -89,6 +89,7 @@
 
         .__right {
             @include Mixins.display-flex(column);
+            flex-grow: 1;
             gap: Vars.$spacing-medium;
             div {
                 @include Mixins.display-flex(column);

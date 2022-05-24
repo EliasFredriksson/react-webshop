@@ -2,7 +2,7 @@
 @use "../Variables.scss" as Vars;
 
 .search-bar {
-    align-self: flex-end;
+    align-self: center;
     z-index: 3;
     transition: 500ms ease;
 
@@ -10,8 +10,15 @@
     @include Mixins.position(sticky, 10px);
     @include Mixins.search-bar();
 
+    button {
+        width: 50px;
+        i {
+            font-size: Vars.$font-size-small;
+        }
+    }
+
     &.is-pinned {
-        width: calc(100% - 40px);
+        width: calc(100% - 100px);
     }
 
     @include Mixins.breakpoint-mobile {
@@ -19,7 +26,7 @@
             font-size: Vars.$font-size-medium;
         }
         &.is-pinned {
-            width: calc(100% - 90px);
+            width: calc(100% - 180px);
             top: 28px;
         }
     }
@@ -29,9 +36,6 @@
         input {
             font-size: Vars.$font-size-small;
         }
-        button[type="submit"] {
-            font-size: Vars.$font-size-medium;
-        }
 
         &.is-pinned {
             top: 8px;
@@ -39,20 +43,20 @@
             transform: translateX(calc(49vw - 50%));
         }
     }
-
     @include Mixins.breakpoint-desktop {
         &.is-pinned {
             top: 5px;
         }
     }
-
     @include Mixins.breakpoint-desktop-large {
         input {
             font-size: Vars.$font-size-medium;
         }
-        button[type="submit"] {
+        button {
             width: 100px;
-            font-size: calc(Vars.$font-size-medium * 1.5);
+            i {
+                font-size: Vars.$font-size-medium;
+            }
         }
         &.is-pinned {
             top: 9px;

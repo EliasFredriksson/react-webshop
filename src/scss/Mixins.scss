@@ -50,7 +50,7 @@
     @if ($bottom != none) {
         bottom: $bottom;
     }
-    @if ($bottom != none) {
+    @if ($right != none) {
         right: $right;
     }
 }

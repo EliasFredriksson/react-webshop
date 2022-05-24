@@ -9,15 +9,15 @@ main {
         Colors.$primary-five,
         Colors.$primary-five
     );
+    padding: Vars.$spacing-small;
 
-    @include Mixins.display-flex(column);
+    @include Mixins.display-flex(column, flex-start, center);
 
     .not-found {
         text-align: center;
         flex-grow: 1;
         margin: Vars.$spacing-large;
         width: 100%;
-        height: 100%;
         border-radius: Vars.$border-radius-medium;
         background: linear-gradient(
             to bottom,

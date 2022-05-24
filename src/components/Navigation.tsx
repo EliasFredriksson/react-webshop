@@ -28,14 +28,14 @@ export default function Navigation() {
     return (
         <nav className="mobile-nav">
             <span className="menu-btn" onClick={open}>
-                ☰
+                <i className="fa-solid fa-bars"></i>
             </span>
             <div className={`menu ${getClassState()}`}>
                 <div className={`__links ${faded ? "fade-out" : "fade-in"}`}>
                     <div className="__top">
                         <span className="menu-title">Menu</span>
                         <span className="menu-btn close" onClick={close}>
-                            🗙
+                            <i className="fa-solid fa-xmark"></i>
                         </span>
                     </div>
 

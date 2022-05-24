@@ -35,7 +35,11 @@ export default function Home() {
     useLayoutEffect(() => {
         if (context.backFromSingleMovie) {
             context.backFromSingleMovie = false;
-            fetchMovies(context.searchHistory, context.pageHistory);
+            fetchMovies(context.searchHistory, context.pageHistory).then(() => {
+                setTimeout(() => {
+                    window.scrollTo(0, context.windowY);
+                }, 100);
+            });
         } else fetchMovies(searchText, page);
     }, []);
 
@@ -128,15 +132,12 @@ export default function Home() {
                     </p>
                     <MovieBrowse movies={movies}></MovieBrowse>
                     <a className="__scroll-top-button" href="#scroll-to-top">
-                        <span>⮉</span>
+                        <i className="fa-solid fa-arrow-up"></i>
                     </a>
                 </>
             );
-            setTimeout(() => {
-                window.scrollTo(0, context.windowY);
-            }, 0);
         }
     }
 
-    return <div className="movie-browser">{html}</div>;
+    return <main className="movie-browser">{html}</main>;
 }

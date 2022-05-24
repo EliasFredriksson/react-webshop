@@ -1,10 +1,11 @@
 import "../scss/components/MovieDetailComponent.scss";
 import MovieDetailed from "../models/MovieDetailed";
+import { useRef } from "react";
 
 interface IMovieProps {
     movie: MovieDetailed;
     movieLoaded: boolean;
-    exited: Function;
+    exited(): void;
 }
 
 const EXCLUDE_VALUES = ["N/A", undefined, ""];
@@ -66,6 +67,12 @@ export default function MovieDetailComponent(props: IMovieProps) {
         );
     }
 
+    const imgRef = useRef<HTMLImageElement>(null);
+    function handleError() {
+        const { current } = imgRef;
+        if (current) current.src = "/Missing_Poster.png";
+    }
+
     if (!props.movieLoaded) {
         html = (
             <div className="detailed-media">
@@ -89,8 +96,10 @@ export default function MovieDetailComponent(props: IMovieProps) {
                         <div className="__media">
                             <div className="__poster">
                                 <img
+                                    onError={handleError}
                                     src={props.movie.Poster}
                                     alt={props.movie.Title}
+                                    ref={imgRef}
                                 />
                             </div>
                         </div>

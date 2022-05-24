@@ -2,7 +2,7 @@ import "../scss/components/Pagination.scss";
 
 interface IPaginationComponent {
     currentPage: number;
-    setPage: Function;
+    setPage(pageNumber: number): void;
     foundCount: number;
 }
 

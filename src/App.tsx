@@ -11,6 +11,8 @@ import HeaderComponent from "./components/HeaderComponent";
 import FooterComponent from "./components/FooterComponent";
 import NavigationDesktop from "./components/NavigationDesktop";
 import { createContext } from "react";
+import CartComponent from "./components/CartComponent";
+import Movie from "./models/Movie";
 
 // ####### CONTEXT #######
 interface IAppContext {
@@ -19,6 +21,7 @@ interface IAppContext {
     countHistory: number;
     backFromSingleMovie: boolean;
     windowY: number;
+    cart: Movie[];
 }
 const ContextData: IAppContext = {
     searchHistory: "",
@@ -26,6 +29,7 @@ const ContextData: IAppContext = {
     countHistory: 0,
     backFromSingleMovie: false,
     windowY: 0,
+    cart: [],
 };
 export const AppContext = createContext<IAppContext>(ContextData);
 // ########################
@@ -33,6 +37,7 @@ export const AppContext = createContext<IAppContext>(ContextData);
 export default function App() {
     return (
         <AppContext.Provider value={ContextData}>
+            <CartComponent></CartComponent>
             <HeaderComponent></HeaderComponent>
             <NavigationDesktop></NavigationDesktop>
             <Navigation></Navigation>
