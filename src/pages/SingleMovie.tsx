@@ -80,6 +80,7 @@ export default function SingleMovie() {
             setMovieLoaded(true);
         });
     }
+
     useLayoutEffect(() => {
         const storedMovie = getStoredMovie();
         if (storedMovie.imdbID === movieId) {
