@@ -55,7 +55,7 @@ export default function Home() {
                     context.countHistory = 0;
                 } else {
                     const IMovies = response.Search;
-                    let fetchedMovies = IMovies.map((m) => {
+                    const fetchedMovies = IMovies.map((m) => {
                         return new Movie({ ...BLANK_MEDIA, ...m });
                     });
                     setMovies(fetchedMovies);
@@ -79,49 +79,26 @@ export default function Home() {
     function triggerPageChange(nextPage: number) {
         if (nextPage !== page) {
             setMovies(undefined);
-            // context.windowY = 0;
             fetchMovies(searchText, nextPage);
         }
     }
 
     // ### DEFAULT (LOADING...) ###
-    let html = (
-        <>
-            <SearchBarComponent
-                searchText={searchText}
-                setText={setSearchText}
-                triggerFetch={triggerSearch}
-            ></SearchBarComponent>
-            <div className="__loader"></div>
-        </>
-    );
+    let html = <div className="__loader"></div>;
 
     if (movies) {
         if (movies.length <= 0) {
             html = (
-                <>
-                    <SearchBarComponent
-                        searchText={searchText}
-                        setText={setSearchText}
-                        triggerFetch={triggerSearch}
-                    ></SearchBarComponent>
-                    <h1 className="__no-result">
-                        <span>No result...</span>
-                        <span>Try again!</span>
-                    </h1>
-                </>
+                <h1 className="__no-result">
+                    <span>No result...</span>
+                    <span>Try again!</span>
+                </h1>
             );
         }
         // ### MOVIES FOUND ###
         else if (movies.length > 0) {
             html = (
                 <>
-                    <SearchBarComponent
-                        searchText={searchText}
-                        setText={setSearchText}
-                        triggerFetch={triggerSearch}
-                    ></SearchBarComponent>
-
                     <PaginationComponent
                         currentPage={page}
                         setPage={triggerPageChange}
@@ -139,5 +116,14 @@ export default function Home() {
         }
     }
 
-    return <main className="movie-browser">{html}</main>;
+    return (
+        <main className="movie-browser">
+            <SearchBarComponent
+                searchText={searchText}
+                setText={setSearchText}
+                triggerFetch={triggerSearch}
+            ></SearchBarComponent>
+            {html}
+        </main>
+    );
 }

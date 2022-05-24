@@ -2,7 +2,7 @@ import "../scss/components/MovieDetailComponent.scss";
 import MovieDetailed from "../models/MovieDetailed";
 import { useContext, useLayoutEffect, useRef } from "react";
 import Movie from "../models/Movie";
-import { AppContext, IAppContext } from "../contexts/AppContext";
+import { AppContext } from "../contexts/AppContext";
 
 interface IMovieProps {
     movie: MovieDetailed;
@@ -83,14 +83,12 @@ export default function MovieDetailComponent(props: IMovieProps) {
         );
     }
 
-    let context = useContext<IAppContext>(AppContext);
+    let context = useContext(AppContext);
     function addToCart() {
         context.updateContext({
             ...context,
             cart: [...context.cart, new Movie({ ...props.movie })],
         });
-
-        console.log("CONTEXT: ", context);
     }
 
     function handleError() {
@@ -139,8 +137,11 @@ export default function MovieDetailComponent(props: IMovieProps) {
                         <div className="__type">
                             <h4>{typeString}</h4>
                         </div>
-                        <button className="__add-to-cart-mobile">
-                            Add to
+                        <button
+                            className="__add-to-cart-mobile"
+                            onClick={addToCart}
+                        >
+                            Add to cart
                             <i className="fa-solid fa-cart-plus"></i>
                         </button>
                     </div>

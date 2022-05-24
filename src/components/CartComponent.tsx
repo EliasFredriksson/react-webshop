@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import "../scss/components/CartComponent.scss";
 import { Link } from "react-router-dom";
 import { AppContext } from "../contexts/AppContext";
@@ -18,11 +18,7 @@ export default function CartComponent(props: ICartComponentProps) {
 
     return (
         <Link to="/cart" className="cart">
-            <i
-                className={
-                    "fa-solid fa-basket-shopping" + ` ${props.extraClass}`
-                }
-            >
+            <i className={`fa-solid fa-basket-shopping ${props.extraClass}`}>
                 {html}
             </i>
         </Link>

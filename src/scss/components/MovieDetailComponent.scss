@@ -17,7 +17,7 @@
         }
 
         .__add-to-cart-tablet {
-            @include Mixins.display-flex(row, center, center);
+            display: none;
             @include Mixins.hover-effect(
                 white,
                 white,
@@ -33,6 +33,7 @@
                 Colors.$accent-two,
                 Colors.$accent-five
             );
+            border: none;
             border-radius: Vars.$border-radius-small;
             margin: Vars.$spacing-medium;
             width: 70px;
@@ -40,6 +41,10 @@
             color: white;
             i {
                 padding-right: 2px;
+            }
+
+            @include Mixins.breakpoint-mobile {
+                @include Mixins.display-flex(row, center, center);
             }
         }
     }
@@ -111,17 +116,19 @@
                     1.05,
                     -4px
                 );
-                font-size: Vars.$font-size-medium;
+                font-size: Vars.$font-size-small;
                 background: linear-gradient(
                     to bottom,
                     Colors.$accent-two,
                     Colors.$accent-five
                 );
+                border: none;
                 border-radius: Vars.$border-radius-small;
                 padding: 10px;
                 color: white;
                 i {
-                    padding-left: 10px;
+                    padding-left: 5px;
+                    font-size: Vars.$font-size-medium;
                 }
 
                 @include Mixins.breakpoint-mobile {
