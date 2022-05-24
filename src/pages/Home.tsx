@@ -82,6 +82,7 @@ export default function Home() {
     // ### SEARCH TRIGGER ###
     function triggerSearch() {
         if (searchText !== context.searchHistory) {
+            window.scrollTo(0, 0);
             setMedia(undefined);
             fetchMovies(searchText, 1);
         }
@@ -90,6 +91,7 @@ export default function Home() {
     // ### PAGINATION TRIGGER ###
     function triggerPageChange(nextPage: number) {
         if (nextPage !== page) {
+            window.scrollTo(0, 0);
             setMedia(undefined);
             setPage(nextPage);
             fetchMovies(searchText, nextPage);

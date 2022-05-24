@@ -1,7 +1,9 @@
 @use "../Colors.scss" as Colors;
 @use "../Mixins.scss" as Mixins;
 @use "../Variables.scss" as Vars;
-.movie {
+.media-card {
+    max-width: 100%;
+    min-width: 0px;
     background: linear-gradient(
         to bottom,
         Colors.$accent-two,

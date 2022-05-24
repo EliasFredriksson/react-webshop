@@ -6,6 +6,7 @@ export default class Media {
     Type: string = "Missing type";
     Year: string = "Missing year";
     imdbID: string = "Missing imdbID";
+    Price: number = 30;
 
     constructor(movie: IMedia) {
         this.Poster = movie.Poster;

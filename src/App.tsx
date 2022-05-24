@@ -15,6 +15,7 @@ import Header from "./components/Header";
 import CartIcon from "./components/CartIcon";
 // ### CONTEXT ###
 import { AppContext, IAppContext } from "./contexts/AppContext";
+import Checkout from "./pages/Checkout";
 
 export default function App() {
     const [contextData, setContextData] = useState<IAppContext>({
@@ -40,7 +41,8 @@ export default function App() {
             <Routes>
                 <Route path="/" element={<Home />}></Route>
                 <Route path="/about" element={<About />}></Route>
-                <Route path="/movies/:id" element={<MovieSingle />}></Route>
+                <Route path="/media/:id" element={<MovieSingle />}></Route>
+                <Route path="/cart" element={<Checkout />}></Route>
                 <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer></Footer>

@@ -1,0 +1,54 @@
+@use "../Colors.scss" as Colors;
+@use "../Mixins.scss" as Mixins;
+@use "../Variables.scss" as Vars;
+
+.checkout {
+    flex-grow: 1;
+
+    @include Mixins.display-flex(column, flex-start, center);
+
+    .__loader {
+        @include Mixins.loader();
+    }
+
+    .__title,
+    .__empty {
+        color: white;
+    }
+
+    .__cart {
+        @include Mixins.display-flex(column);
+        gap: Vars.$spacing-medium;
+        width: 100%;
+        padding: Vars.$spacing-medium;
+        background-color: black;
+
+        .__entry {
+            @include Mixins.display-flex(row, space-between);
+            gap: Vars.$spacing-medium;
+            color: white;
+
+            .media-card {
+                --poster-width: 120px;
+
+                @include Mixins.breakpoint-mobile {
+                    --poster-width: 200px;
+                }
+            }
+
+            .__information {
+                border-radius: Vars.$border-radius-small;
+                flex-grow: 1;
+                background: linear-gradient(
+                    to bottom,
+                    Colors.$accent-two,
+                    Colors.$primary-five
+                );
+            }
+        }
+
+        @include Mixins.breakpoint-tablet {
+            width: 60%;
+        }
+    }
+}

@@ -50,6 +50,8 @@
     }
 
     .__information {
+        max-width: 100%;
+        min-width: 0px;
         transition: 500ms ease;
         transform: translateY(10%);
         opacity: 0;

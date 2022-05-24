@@ -64,8 +64,8 @@ export default function MediaCard(props: IMediaCardProps) {
 
     return (
         <Link
-            to={`/movies/${media.imdbID}`}
-            className={`movie ${fadedOut ? "fade-in" : ""} ${
+            to={`/media/${media.imdbID}`}
+            className={`media-card ${fadedOut ? "fade-in" : ""} ${
                 visible ? "appear" : ""
             }`}
             ref={movieRef}
