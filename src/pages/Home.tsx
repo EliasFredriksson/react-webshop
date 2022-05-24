@@ -11,8 +11,8 @@ import IMovie from "../interface/IMovie";
 import MovieService from "../services/MovieService";
 import PaginationComponent from "../components/PaginationComponent";
 import IOmbdResponse from "../interface/IOmdbResponse";
+import { AppContext } from "../contexts/AppContext";
 // ### CONTEXT ###
-import { AppContext } from "../App";
 
 const BLANK_MEDIA: IMovie = {
     Title: "",

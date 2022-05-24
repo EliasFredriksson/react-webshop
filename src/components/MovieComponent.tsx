@@ -1,6 +1,6 @@
 import { useContext, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { AppContext } from "../App";
+import { AppContext } from "../contexts/AppContext";
 import Movie from "../models/Movie";
 import "../scss/components/Movie.scss";
 
@@ -14,12 +14,11 @@ export default function MovieComponent(props: IMovieProps) {
     const [fadedOut, setFadedOut] = useState(true);
     const observerThreshold = 0.3;
 
-    const imgRef = useRef<HTMLImageElement>(null);
-
     const context = useContext(AppContext);
 
     // ### REF ###
     // Reference to itself in the DOM. so we can change the class.
+    const imgRef = useRef<HTMLImageElement>(null);
     const movieRef = useRef<HTMLAnchorElement>(null);
 
     useLayoutEffect(() => {

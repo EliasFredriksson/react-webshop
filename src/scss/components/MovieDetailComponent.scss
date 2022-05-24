@@ -3,23 +3,51 @@
 @use "../Mixins.scss" as Mixins;
 
 .detailed-media {
-    transition: opacity 1s ease;
-    opacity: 1;
     flex-grow: 1;
     @include Mixins.display-flex(column, flex-start, center);
 
     .__back {
         width: 100%;
-        @include Mixins.display-flex();
+        @include Mixins.display-flex(row, space-between);
         span {
             @include Mixins.button-square(100px, 0px, white);
         }
         @include Mixins.breakpoint-tablet {
             width: 60%;
         }
+
+        .__add-to-cart-tablet {
+            @include Mixins.display-flex(row, center, center);
+            @include Mixins.hover-effect(
+                white,
+                white,
+                none,
+                none,
+                90%,
+                1.05,
+                -4px
+            );
+            font-size: Vars.$font-size-medium;
+            background: linear-gradient(
+                to bottom,
+                Colors.$accent-two,
+                Colors.$accent-five
+            );
+            border-radius: Vars.$border-radius-small;
+            margin: Vars.$spacing-medium;
+            width: 70px;
+            height: 70px;
+            color: white;
+            i {
+                padding-right: 2px;
+            }
+        }
     }
 
     .__information {
+        transition: 500ms ease;
+        transform: translateY(10%);
+        opacity: 0;
         color: white;
 
         padding: Vars.$spacing-large;
@@ -38,6 +66,11 @@
         .__left {
             @include Mixins.display-flex(column, flex-start, center);
             gap: Vars.$spacing-large;
+
+            @include Mixins.breakpoint-tablet {
+                max-width: 50%;
+            }
+
             .__media {
                 background: linear-gradient(
                     to bottom,
@@ -66,6 +99,34 @@
             }
             .__type {
                 text-shadow: 0px 0px 10px white;
+            }
+            .__add-to-cart-mobile {
+                @include Mixins.display-flex(row, center, center);
+                @include Mixins.hover-effect(
+                    white,
+                    white,
+                    none,
+                    none,
+                    90%,
+                    1.05,
+                    -4px
+                );
+                font-size: Vars.$font-size-medium;
+                background: linear-gradient(
+                    to bottom,
+                    Colors.$accent-two,
+                    Colors.$accent-five
+                );
+                border-radius: Vars.$border-radius-small;
+                padding: 10px;
+                color: white;
+                i {
+                    padding-left: 10px;
+                }
+
+                @include Mixins.breakpoint-mobile {
+                    display: none;
+                }
             }
         }
 
@@ -112,6 +173,11 @@
             .__label {
                 text-decoration: underline;
             }
+        }
+
+        &.__active {
+            transform: translateY(0%);
+            opacity: 1;
         }
     }
 

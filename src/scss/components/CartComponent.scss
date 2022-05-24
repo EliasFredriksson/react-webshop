@@ -3,14 +3,49 @@
 @use "../Mixins.scss" as Mixins;
 
 .cart {
+    // border: 2px solid blue;
     z-index: 98;
-    @include Mixins.position(fixed, 5px, none, none, 5px);
-    @include Mixins.button-square(50px);
-    @include Mixins.breakpoint-mobile {
-        @include Mixins.button-square(100px);
+
+    & .__mobile {
+        @include Mixins.position(fixed, 5px, none, none, 5px);
+        @include Mixins.button-square(50px);
+
+        span {
+            @include Mixins.button-square(20px);
+            @include Mixins.position(absolute, 0px, none, none, -2px);
+        }
+
+        @include Mixins.breakpoint-mobile {
+            @include Mixins.button-square(100px);
+
+            span {
+                @include Mixins.position(absolute, 10px, none, none, 10px);
+            }
+        }
+        @include Mixins.breakpoint-tablet {
+            display: none;
+        }
     }
 
-    @include Mixins.breakpoint-tablet {
+    & .__desktop {
         display: none;
+        @include Mixins.breakpoint-tablet {
+            position: relative;
+            display: block;
+            font-size: Vars.$font-size-medium;
+
+            @include Mixins.display-flex(row, center, center);
+
+            span {
+                @include Mixins.button-square(15px);
+                @include Mixins.position(absolute, -5px, none, none, 12px);
+            }
+        }
+
+        @include Mixins.breakpoint-desktop-large {
+            span {
+                @include Mixins.position(absolute, -5px, none, none, 50px);
+            }
+        }
     }
 }

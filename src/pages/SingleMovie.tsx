@@ -3,13 +3,13 @@ import { useContext, useLayoutEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 // ### COMPONENTS ###
 import MovieDetailComponent from "../components/MovieDetailComponent";
+import { AppContext } from "../contexts/AppContext";
 // ### MODELS ###
 import IMovieDetailed from "../interface/IMovieDetailed";
 import MovieDetailed from "../models/MovieDetailed";
 // ### SERVICES ###
 import MovieService from "../services/MovieService";
 // ### CONTEXT ###
-import { AppContext } from "../App";
 
 const BLANK_DETAILED_MOVIE = {
     Title: "",

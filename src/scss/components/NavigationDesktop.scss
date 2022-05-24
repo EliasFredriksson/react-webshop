@@ -26,9 +26,9 @@
     }
 
     a {
+        @include Mixins.position(relative);
         flex-grow: 0;
         flex-basis: 100px;
-        @include Mixins.position(relative);
 
         padding: Vars.$spacing-medium;
         font-size: Vars.$font-size-small;

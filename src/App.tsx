@@ -10,34 +10,31 @@ import Navigation from "./components/Navigation";
 import HeaderComponent from "./components/HeaderComponent";
 import FooterComponent from "./components/FooterComponent";
 import NavigationDesktop from "./components/NavigationDesktop";
-import { createContext } from "react";
+import { useState } from "react";
 import CartComponent from "./components/CartComponent";
-import Movie from "./models/Movie";
+
+import { AppContext, IAppContext } from "./contexts/AppContext";
 
 // ####### CONTEXT #######
-interface IAppContext {
-    searchHistory: string;
-    pageHistory: number;
-    countHistory: number;
-    backFromSingleMovie: boolean;
-    windowY: number;
-    cart: Movie[];
-}
-const ContextData: IAppContext = {
-    searchHistory: "",
-    pageHistory: 1,
-    countHistory: 0,
-    backFromSingleMovie: false,
-    windowY: 0,
-    cart: [],
-};
-export const AppContext = createContext<IAppContext>(ContextData);
-// ########################
 
 export default function App() {
+    const [contextData, setContextData] = useState<IAppContext>({
+        searchHistory: "",
+        pageHistory: 0,
+        countHistory: 0,
+        backFromSingleMovie: false,
+        windowY: 0,
+        cart: [],
+        updateContext: updateContext,
+    });
+
+    function updateContext(updatedContext: {}): void {
+        setContextData({ ...contextData, ...updatedContext });
+    }
+
     return (
-        <AppContext.Provider value={ContextData}>
-            <CartComponent></CartComponent>
+        <AppContext.Provider value={contextData}>
+            <CartComponent extraClass="__mobile"></CartComponent>
             <HeaderComponent></HeaderComponent>
             <NavigationDesktop></NavigationDesktop>
             <Navigation></Navigation>

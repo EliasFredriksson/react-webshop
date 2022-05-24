@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "../scss/components/NavigationDesktop.scss";
+import CartComponent from "./CartComponent";
 
 export default function NavigationDesktop() {
     const ref = useRef<HTMLDivElement>(null);
@@ -24,15 +25,9 @@ export default function NavigationDesktop() {
 
     return (
         <div className="desktop-nav" ref={ref}>
-            <Link to="/" data-path="/">
-                Home
-            </Link>
-            <Link to="/about" data-path="/about">
-                About
-            </Link>
-            <Link to="/cart" data-path="/cart">
-                Cart
-            </Link>
+            <Link to="/">Home</Link>
+            <Link to="/about">About</Link>
+            <CartComponent extraClass="__desktop"></CartComponent>
         </div>
     );
 }
