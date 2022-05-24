@@ -1,12 +1,12 @@
 import "../scss/components/Pagination.scss";
 
-interface IPaginationComponent {
+interface IPaginationProps {
     currentPage: number;
     setPage(pageNumber: number): void;
     foundCount: number;
 }
 
-export default function PaginationComponent(props: IPaginationComponent) {
+export default function Pagination(props: IPaginationProps) {
     const amountOfPages = Math.ceil(props.foundCount / 10);
     const visibleTabs = Math.min(5, amountOfPages);
     let showMin = true;
@@ -88,7 +88,6 @@ export default function PaginationComponent(props: IPaginationComponent) {
         }
     }
     function handleClick(pageNumber: number) {
-        // console.log(pageNumber);
         props.setPage(pageNumber);
         window.scrollTo(0, 0);
     }

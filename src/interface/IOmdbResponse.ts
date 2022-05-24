@@ -1,7 +1,7 @@
-import IMovie from "./IMovie";
+import IMedia from "./IMedia";
 
 export default interface IOmbdResponse {
-    Search: IMovie[];
+    Search: IMedia[];
     Response: string;
     totalResults: string;
 }

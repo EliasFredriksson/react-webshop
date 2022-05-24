@@ -1,12 +1,14 @@
-import { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useLayoutEffect, useRef } from "react";
 import "../scss/components/NavigationDesktop.scss";
-import CartComponent from "./CartComponent";
+// ### ROUTER ###
+import { Link } from "react-router-dom";
+// ### COMPONENT
+import CartIcon from "./CartIcon";
 
 export default function NavigationDesktop() {
     const ref = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
@@ -27,7 +29,7 @@ export default function NavigationDesktop() {
         <div className="desktop-nav" ref={ref}>
             <Link to="/">Home</Link>
             <Link to="/about">About</Link>
-            <CartComponent extraClass="__desktop"></CartComponent>
+            <CartIcon extraClass="__desktop"></CartIcon>
         </div>
     );
 }

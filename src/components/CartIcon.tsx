@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import "../scss/components/CartComponent.scss";
+import "../scss/components/CartIcon.scss";
 import { Link } from "react-router-dom";
 import { AppContext } from "../contexts/AppContext";
 // ### CONTEXT ###
@@ -8,7 +8,7 @@ interface ICartComponentProps {
     extraClass: string;
 }
 
-export default function CartComponent(props: ICartComponentProps) {
+export default function CartIcon(props: ICartComponentProps) {
     const context = useContext(AppContext);
 
     let html = <></>;

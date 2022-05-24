@@ -1,15 +1,18 @@
 import { useContext, useLayoutEffect, useRef, useState } from "react";
+import "../scss/components/MediaCard.scss";
+// ### ROUTER ###
 import { Link } from "react-router-dom";
+// ### CONTEXT ###
 import { AppContext } from "../contexts/AppContext";
-import Movie from "../models/Movie";
-import "../scss/components/Movie.scss";
+// ### MODELS ###
+import Media from "../models/Media";
 
-interface IMovieProps {
-    movie: Movie;
+interface IMediaCardProps {
+    media: Media;
 }
 
-export default function MovieComponent(props: IMovieProps) {
-    const movie = props.movie;
+export default function MediaCard(props: IMediaCardProps) {
+    const media = props.media;
     const [visible, setVisible] = useState(false);
     const [fadedOut, setFadedOut] = useState(true);
     const observerThreshold = 0.3;
@@ -48,7 +51,9 @@ export default function MovieComponent(props: IMovieProps) {
     }
 
     function handleClick() {
-        context.windowY = window.visualViewport.pageTop;
+        context.updateContext({
+            windowY: window.visualViewport.pageTop,
+        });
     }
 
     function handleError() {
@@ -58,7 +63,7 @@ export default function MovieComponent(props: IMovieProps) {
 
     return (
         <Link
-            to={`/movies/${movie.imdbID}`}
+            to={`/movies/${media.imdbID}`}
             className={`movie ${fadedOut ? "fade-in" : ""} ${
                 visible ? "appear" : ""
             }`}
@@ -67,13 +72,13 @@ export default function MovieComponent(props: IMovieProps) {
         >
             <div className="__poster">
                 <img
-                    src={movie.Poster}
-                    alt={movie.Title}
+                    src={media.Poster}
+                    alt={media.Title}
                     onError={handleError}
                     ref={imgRef}
                 />
             </div>
-            <span className="__info">{movie.Title}</span>
+            <span className="__info">{media.Title}</span>
         </Link>
     );
 }

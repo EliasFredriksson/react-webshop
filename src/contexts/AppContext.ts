@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import Movie from "../models/Movie";
+import Media from "../models/Media";
 
 export interface IAppContext {
     searchHistory: string;
@@ -7,8 +7,8 @@ export interface IAppContext {
     countHistory: number;
     backFromSingleMovie: boolean;
     windowY: number;
-    cart: Movie[];
-    updateContext(updatedContext: IAppContext): void;
+    cart: Media[];
+    updateContext(updatedContext: {}): void;
 }
 
 export const AppContext = createContext<IAppContext>({

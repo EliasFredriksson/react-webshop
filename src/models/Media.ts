@@ -1,13 +1,13 @@
-import IMovie from "../interface/IMovie";
+import IMedia from "../interface/IMedia";
 
-export default class Movie {
+export default class Media {
     Poster: string = "Missing poster";
     Title: string = "Missing title";
     Type: string = "Missing type";
     Year: string = "Missing year";
     imdbID: string = "Missing imdbID";
 
-    constructor(movie: IMovie) {
+    constructor(movie: IMedia) {
         this.Poster = movie.Poster;
         this.Title = movie.Title;
         this.Type = movie.Type;

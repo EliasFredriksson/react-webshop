@@ -1,20 +1,20 @@
 import { useContext, useLayoutEffect, useState } from "react";
 import "../scss/components/Home.scss";
 // ### COMPONENTS ###
-import MovieBrowse from "../components/MovieBrowse";
-import SearchBarComponent from "../components/SearchBarComponent";
+import SearchBar from "../components/SearchBar";
+import Pagination from "../components/Pagination";
+import MediaBrowse from "../components/MediaBrowse";
 // ### MODELS ###
-import Movie from "../models/Movie";
+import Media from "../models/Media";
 // ### INTERFACES ###
-import IMovie from "../interface/IMovie";
-// ### SERVICES ###
-import MovieService from "../services/MovieService";
-import PaginationComponent from "../components/PaginationComponent";
+import IMedia from "../interface/IMedia";
 import IOmbdResponse from "../interface/IOmdbResponse";
-import { AppContext } from "../contexts/AppContext";
+// ### SERVICES ###
+import MovieService from "../services/OmdbService";
 // ### CONTEXT ###
+import { AppContext } from "../contexts/AppContext";
 
-const BLANK_MEDIA: IMovie = {
+const BLANK_MEDIA: IMedia = {
     Title: "",
     Type: "",
     Poster: "",
@@ -26,7 +26,7 @@ const BLANK_MEDIA: IMovie = {
 export default function Home() {
     const [page, setPage] = useState(1);
     const [searchText, setSearchText] = useState("Star Wars");
-    const [movies, setMovies] = useState<Movie[] | undefined>(undefined);
+    const [media, setMedia] = useState<Media[] | undefined>(undefined);
     const [foundCount, setFoundCount] = useState<number>(0);
 
     // ### ACCESS TO APP CONTEXT ###
@@ -34,7 +34,10 @@ export default function Home() {
 
     useLayoutEffect(() => {
         if (context.backFromSingleMovie) {
-            context.backFromSingleMovie = false;
+            console.log("CONTEXT: ", context);
+            context.updateContext({
+                backFromSingleMovie: false,
+            });
             fetchMovies(context.searchHistory, context.pageHistory).then(() => {
                 setTimeout(() => {
                     window.scrollTo(0, context.windowY);
@@ -50,35 +53,44 @@ export default function Home() {
             .getMovies(searchText.trim(), page)
             .then((response: IOmbdResponse) => {
                 if (response.Response === "False") {
-                    setMovies([]);
+                    setMedia([]);
                     setFoundCount(0);
-                    context.countHistory = 0;
-                } else {
-                    const IMovies = response.Search;
-                    const fetchedMovies = IMovies.map((m) => {
-                        return new Movie({ ...BLANK_MEDIA, ...m });
+                    context.updateContext({
+                        countHistory: 0,
+                        searchHistory: searchText,
+                        pageHistory: page,
                     });
-                    setMovies(fetchedMovies);
+                } else {
+                    const IMedia = response.Search;
+                    const fetchedMedia = IMedia.map((m: IMedia) => {
+                        return new Media({ ...BLANK_MEDIA, ...m });
+                    });
+                    setMedia(fetchedMedia);
                     setFoundCount(parseInt(response.totalResults));
-                    context.countHistory = parseInt(response.totalResults);
+                    context.updateContext({
+                        countHistory: parseInt(response.totalResults),
+                        searchHistory: searchText,
+                        pageHistory: page,
+                    });
                 }
-                context.searchHistory = searchText;
-                context.pageHistory = page;
+
                 setSearchText(searchText);
                 setPage(page);
             });
     }
 
+    // ### SEARCH TRIGGER ###
     function triggerSearch() {
         if (searchText !== context.searchHistory) {
-            setMovies(undefined);
+            setMedia(undefined);
             fetchMovies(searchText, 1);
         }
     }
 
+    // ### PAGINATION TRIGGER ###
     function triggerPageChange(nextPage: number) {
         if (nextPage !== page) {
-            setMovies(undefined);
+            setMedia(undefined);
             fetchMovies(searchText, nextPage);
         }
     }
@@ -86,8 +98,8 @@ export default function Home() {
     // ### DEFAULT (LOADING...) ###
     let html = <div className="__loader"></div>;
 
-    if (movies) {
-        if (movies.length <= 0) {
+    if (media) {
+        if (media.length <= 0) {
             html = (
                 <h1 className="__no-result">
                     <span>No result...</span>
@@ -96,18 +108,18 @@ export default function Home() {
             );
         }
         // ### MOVIES FOUND ###
-        else if (movies.length > 0) {
+        else if (media.length > 0) {
             html = (
                 <>
-                    <PaginationComponent
+                    <Pagination
                         currentPage={page}
                         setPage={triggerPageChange}
                         foundCount={foundCount}
-                    ></PaginationComponent>
+                    ></Pagination>
                     <p className="__total-result">
                         "{context.searchHistory.trim()}" gave {foundCount} hits.
                     </p>
-                    <MovieBrowse movies={movies}></MovieBrowse>
+                    <MediaBrowse media={media}></MediaBrowse>
                     <a className="__scroll-top-button" href="#scroll-to-top">
                         <i className="fa-solid fa-arrow-up"></i>
                     </a>
@@ -118,11 +130,11 @@ export default function Home() {
 
     return (
         <main className="movie-browser">
-            <SearchBarComponent
+            <SearchBar
                 searchText={searchText}
                 setText={setSearchText}
                 triggerFetch={triggerSearch}
-            ></SearchBarComponent>
+            ></SearchBar>
             {html}
         </main>
     );

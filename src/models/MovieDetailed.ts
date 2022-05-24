@@ -1,6 +1,6 @@
-import IMovieDetailed from "../interface/IMovieDetailed";
+import IMediaDetailed from "../interface/IMediaDetailed";
 
-export default class MovieDetailed {
+export default class MediaDetailed {
     // ### STANDARD ###
     Poster: string = "";
     Title: string = "";
@@ -22,7 +22,7 @@ export default class MovieDetailed {
     Rated: string = "";
     totalSeasons: string = "";
 
-    constructor(movie: IMovieDetailed) {
+    constructor(movie: IMediaDetailed) {
         // ### STANDARD ###
         this.Poster = movie.Poster;
         this.Title = movie.Title;

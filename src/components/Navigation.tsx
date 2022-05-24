@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import "../scss/components/Navigation.scss";
+// ### ROUTER ###
+import { Link } from "react-router-dom";
 
 export default function Navigation() {
     const [visible, setVisible] = useState(false);
@@ -20,17 +21,12 @@ export default function Navigation() {
         }, animationDelay);
     }
 
-    function getClassState(): string {
-        if (visible) return "open";
-        else return "closed";
-    }
-
     return (
         <nav className="mobile-nav">
             <span className="menu-btn" onClick={open}>
                 <i className="fa-solid fa-bars"></i>
             </span>
-            <div className={`menu ${getClassState()}`}>
+            <div className={visible ? "menu open" : "menu closed"}>
                 <div className={`__links ${faded ? "fade-out" : "fade-in"}`}>
                     <div className="__top">
                         <span className="menu-title">Menu</span>

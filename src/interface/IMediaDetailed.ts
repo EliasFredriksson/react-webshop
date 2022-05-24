@@ -1,4 +1,4 @@
-export default interface IMovieDetailed {
+export default interface IMediaDetailed {
     // ### STANDARD ###
     Poster: string;
     Title: string;

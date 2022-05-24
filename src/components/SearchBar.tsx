@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useRef } from "react";
-import "../scss/components/SearchBarComponent.scss";
+import "../scss/components/SearchBar.scss";
 
 interface ISearchBarProps {
     searchText: string;
@@ -7,7 +7,7 @@ interface ISearchBarProps {
     triggerFetch(): void;
 }
 
-export default function SearchBarComponent(props: ISearchBarProps) {
+export default function SearchBar(props: ISearchBarProps) {
     const ref = useRef<HTMLFormElement>(null);
 
     useEffect(() => {

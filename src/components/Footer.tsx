@@ -1,6 +1,6 @@
 import "../scss/components/Footer.scss";
 
-export default function FooterComponent() {
+export default function Footer() {
     return (
         <footer>
             <div className="contact">

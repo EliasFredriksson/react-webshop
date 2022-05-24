@@ -1,21 +1,20 @@
+// ### REACT ###
+import { useState } from "react";
 // ### ROUTER ###
 import { Route, Routes } from "react-router-dom";
 // ### PAGES ###
 import Home from "./pages/Home";
-import SingleMovie from "./pages/SingleMovie";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
+import MovieSingle from "./pages/MovieSingle";
 // ### COMPONENTS ###
 import Navigation from "./components/Navigation";
-import HeaderComponent from "./components/HeaderComponent";
-import FooterComponent from "./components/FooterComponent";
 import NavigationDesktop from "./components/NavigationDesktop";
-import { useState } from "react";
-import CartComponent from "./components/CartComponent";
-
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import CartIcon from "./components/CartIcon";
+// ### CONTEXT ###
 import { AppContext, IAppContext } from "./contexts/AppContext";
-
-// ####### CONTEXT #######
 
 export default function App() {
     const [contextData, setContextData] = useState<IAppContext>({
@@ -34,17 +33,17 @@ export default function App() {
 
     return (
         <AppContext.Provider value={contextData}>
-            <CartComponent extraClass="__mobile"></CartComponent>
-            <HeaderComponent></HeaderComponent>
+            <CartIcon extraClass="__mobile"></CartIcon>
+            <Header></Header>
             <NavigationDesktop></NavigationDesktop>
             <Navigation></Navigation>
             <Routes>
                 <Route path="/" element={<Home />}></Route>
                 <Route path="/about" element={<About />}></Route>
-                <Route path="/movies/:id" element={<SingleMovie />}></Route>
+                <Route path="/movies/:id" element={<MovieSingle />}></Route>
                 <Route path="*" element={<NotFound />} />
             </Routes>
-            <FooterComponent></FooterComponent>
+            <Footer></Footer>
         </AppContext.Provider>
     );
 }

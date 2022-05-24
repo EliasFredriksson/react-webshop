@@ -1,9 +1,10 @@
+// ### AXIOS ###
 import axios from "axios";
-// import IMovie from "../interface/IMovie";
-import IMovieDetailed from "../interface/IMovieDetailed";
+// ### INTERFACES ###
 import IOmbdResponse from "../interface/IOmdbResponse";
+import IMediaDetailed from "../interface/IMediaDetailed";
 
-export default class MovieService {
+export default class OmdbService {
     KEY = "4c377e85";
     API = `http://www.omdbapi.com/?apikey=${this.KEY}&`;
 
@@ -15,13 +16,11 @@ export default class MovieService {
             this.API + `s=${searchText}&page=${page}`
         );
         // We use .data as it is a axiosResponse, and inside that is the IOmdbResponse.
-        // console.log("RAW: ", response);
-        // console.log("DATA: ", response.data);
         return response.data;
     }
 
-    public async getMovieById(Id: string): Promise<IMovieDetailed> {
-        const response = await axios.get<IMovieDetailed>(this.API + `i=${Id}`);
+    public async getMovieById(Id: string): Promise<IMediaDetailed> {
+        const response = await axios.get<IMediaDetailed>(this.API + `i=${Id}`);
         return response.data;
     }
 
