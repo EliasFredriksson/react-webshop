@@ -27,8 +27,8 @@ export default function App() {
         updateContext: updateContext,
     });
 
-    function updateContext(updatedContext: {}): void {
-        setContextData({ ...contextData, ...updatedContext });
+    function updateContext(updatedContext: IAppContext): void {
+        setContextData({ ...updatedContext });
     }
 
     return (

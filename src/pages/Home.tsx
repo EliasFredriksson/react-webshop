@@ -10,7 +10,7 @@ import Media from "../models/Media";
 import IMedia from "../interface/IMedia";
 import IOmbdResponse from "../interface/IOmdbResponse";
 // ### SERVICES ###
-import MovieService from "../services/OmdbService";
+import OmdbService from "../services/OmdbService";
 // ### CONTEXT ###
 import { AppContext } from "../contexts/AppContext";
 
@@ -33,9 +33,11 @@ export default function Home() {
     const context = useContext(AppContext);
 
     useLayoutEffect(() => {
+        // console.log("CONTEXT: ");
+        // console.table(context);
         if (context.backFromSingleMovie) {
-            console.log("CONTEXT: ", context);
             context.updateContext({
+                ...context,
                 backFromSingleMovie: false,
             });
             fetchMovies(context.searchHistory, context.pageHistory).then(() => {
@@ -48,18 +50,14 @@ export default function Home() {
 
     // ##### API FETCH #####
     async function fetchMovies(searchText: string, page: number) {
-        const service = new MovieService();
+        const service = new OmdbService();
         service
             .getMovies(searchText.trim(), page)
             .then((response: IOmbdResponse) => {
+                let foundAmount = 0;
                 if (response.Response === "False") {
                     setMedia([]);
                     setFoundCount(0);
-                    context.updateContext({
-                        countHistory: 0,
-                        searchHistory: searchText,
-                        pageHistory: page,
-                    });
                 } else {
                     const IMedia = response.Search;
                     const fetchedMedia = IMedia.map((m: IMedia) => {
@@ -67,13 +65,15 @@ export default function Home() {
                     });
                     setMedia(fetchedMedia);
                     setFoundCount(parseInt(response.totalResults));
-                    context.updateContext({
-                        countHistory: parseInt(response.totalResults),
-                        searchHistory: searchText,
-                        pageHistory: page,
-                    });
+                    foundAmount = parseInt(response.totalResults);
                 }
 
+                context.updateContext({
+                    ...context,
+                    countHistory: foundAmount,
+                    searchHistory: searchText,
+                    pageHistory: page,
+                });
                 setSearchText(searchText);
                 setPage(page);
             });
@@ -91,6 +91,7 @@ export default function Home() {
     function triggerPageChange(nextPage: number) {
         if (nextPage !== page) {
             setMedia(undefined);
+            setPage(nextPage);
             fetchMovies(searchText, nextPage);
         }
     }

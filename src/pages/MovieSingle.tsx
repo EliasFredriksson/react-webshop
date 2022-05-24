@@ -103,6 +103,7 @@ export default function MovieSingle() {
                     setMedia(BLANK_DETAILED_MOVIE);
                     setMediaLoaded(false);
                     context.updateContext({
+                        ...context,
                         backFromSingleMovie: true,
                     });
                 }}

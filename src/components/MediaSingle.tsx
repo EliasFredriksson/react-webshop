@@ -87,9 +87,10 @@ export default function MovieSingle(props: IMediaSingleProps) {
     }
 
     // ### ADD TO CART IN CONTEXT ###
-    let context = useContext(AppContext);
+    const context = useContext(AppContext);
     function addToCart() {
         context.updateContext({
+            ...context,
             cart: [...context.cart, new Media({ ...props.media })],
         });
     }
@@ -121,7 +122,7 @@ export default function MovieSingle(props: IMediaSingleProps) {
                             props.exited();
                         }}
                     >
-                        ⇦
+                        <i className="fa-solid fa-arrow-left"></i>
                     </span>
                     <button
                         className="__add-to-cart-tablet"

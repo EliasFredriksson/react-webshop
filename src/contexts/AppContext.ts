@@ -8,7 +8,7 @@ export interface IAppContext {
     backFromSingleMovie: boolean;
     windowY: number;
     cart: Media[];
-    updateContext(updatedContext: {}): void;
+    updateContext(updatedContext: IAppContext): void;
 }
 
 export const AppContext = createContext<IAppContext>({

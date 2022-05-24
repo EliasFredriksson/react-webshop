@@ -41,6 +41,9 @@ export default function Navigation() {
                     <Link to="/about" onClick={close} className="menu-link">
                         About
                     </Link>
+                    <Link to="/cart" onClick={close} className="menu-link">
+                        Cart
+                    </Link>
                 </div>
             </div>
         </nav>

@@ -52,6 +52,7 @@ export default function MediaCard(props: IMediaCardProps) {
 
     function handleClick() {
         context.updateContext({
+            ...context,
             windowY: window.visualViewport.pageTop,
         });
     }
