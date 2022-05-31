@@ -28,8 +28,12 @@ export default function CartIcon(props: ICartComponentProps) {
         }
     }, [context.cart]);
 
+    function handleClick() {
+        window.scrollTo(0, 0);
+    }
+
     return (
-        <Link to="/cart" className="cart">
+        <Link to="/cart" className="cart" onClick={handleClick}>
             <i className={`fa-solid fa-basket-shopping ${props.extraClass}`}>
                 <span ref={spanRef} className="">
                     {html}

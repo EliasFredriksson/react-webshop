@@ -25,10 +25,18 @@ export default function NavigationDesktop() {
         observer.observe(current);
     }, []);
 
+    function handleClick() {
+        window.scrollTo(0, 0);
+    }
+
     return (
         <div className="desktop-nav" ref={ref}>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
+            <Link to="/" onClick={handleClick}>
+                Home
+            </Link>
+            <Link to="/about" onClick={handleClick}>
+                About
+            </Link>
             <CartIcon extraClass="__desktop"></CartIcon>
         </div>
     );

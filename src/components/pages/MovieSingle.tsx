@@ -1,6 +1,6 @@
 import { useContext, useLayoutEffect, useState } from "react";
 // ### ROUTER ###
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 // ### COMPONENTS ###
 import MediaSingle from "../MediaSingle";
 // ### INTERFACES ###
@@ -39,6 +39,7 @@ export default function MovieSingle() {
         new MediaDetailed(BLANK_DETAILED_MOVIE)
     );
 
+    const location = useLocation();
     const params = useParams();
     const movieIdParam: string | undefined = params.id;
     const service = new OmdbService();

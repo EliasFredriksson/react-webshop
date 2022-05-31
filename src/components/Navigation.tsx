@@ -12,6 +12,7 @@ export default function Navigation() {
         setFaded(true);
         setTimeout(() => {
             setVisible(false);
+            window.scrollTo(0, 0);
         }, animationDelay);
     }
     function open() {
