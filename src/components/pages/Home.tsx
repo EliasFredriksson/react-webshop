@@ -1,18 +1,18 @@
 import { useContext, useLayoutEffect, useState } from "react";
-import "../scss/components/Home.scss";
+import "../../scss/components/Home.scss";
 // ### COMPONENTS ###
-import SearchBar from "../components/SearchBar";
-import Pagination from "../components/Pagination";
-import MediaBrowse from "../components/MediaBrowse";
+import SearchBar from "../SearchBar";
+import Pagination from "../Pagination";
+import MediaBrowse from "../MediaBrowse";
 // ### MODELS ###
-import Media from "../models/Media";
+import Media from "../../models/Media";
 // ### INTERFACES ###
-import IMedia from "../interface/IMedia";
-import IOmbdResponse from "../interface/IOmdbResponse";
+import IMedia from "../../interface/IMedia";
+import IOmbdResponse from "../../interface/IOmdbResponse";
 // ### SERVICES ###
-import OmdbService from "../services/OmdbService";
+import OmdbService from "../../services/OmdbService";
 // ### CONTEXT ###
-import { AppContext } from "../contexts/AppContext";
+import { AppContext } from "../../contexts/AppContext";
 
 const BLANK_MEDIA: IMedia = {
     Title: "",

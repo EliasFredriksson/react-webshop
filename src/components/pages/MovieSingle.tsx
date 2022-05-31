@@ -2,15 +2,15 @@ import { useContext, useLayoutEffect, useState } from "react";
 // ### ROUTER ###
 import { useParams } from "react-router-dom";
 // ### COMPONENTS ###
-import MediaSingle from "../components/MediaSingle";
+import MediaSingle from "../MediaSingle";
 // ### INTERFACES ###
-import IMediaDetailed from "../interface/IMediaDetailed";
+import IMediaDetailed from "../../interface/IMediaDetailed";
 // ### MODELS ###
-import MediaDetailed from "../models/MovieDetailed";
+import MediaDetailed from "../../models/MovieDetailed";
 // ### SERVICES ###
-import OmdbService from "../services/OmdbService";
+import OmdbService from "../../services/OmdbService";
 // ### CONTEXT ###
-import { AppContext } from "../contexts/AppContext";
+import { AppContext } from "../../contexts/AppContext";
 
 const BLANK_DETAILED_MOVIE = {
     Title: "",

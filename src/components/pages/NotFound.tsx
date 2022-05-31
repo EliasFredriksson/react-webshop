@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 
 // ### SCSS ###
-import "../scss/components/NotFound.scss";
+import "../../scss/components/NotFound.scss";
 
 export default function NotFound() {
     return (

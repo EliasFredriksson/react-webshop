@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import "../scss/components/Checkout.scss";
+import "../../scss/components/Checkout.scss";
 // ### CONTEXT ###
-import { AppContext } from "../contexts/AppContext";
+import { AppContext } from "../../contexts/AppContext";
 // ### COMPONENTS ###
-import MediaCard from "../components/MediaCard";
+import MediaCard from "../MediaCard";
 // ### MODELS ###
-import Media from "../models/Media";
+import Media from "../../models/Media";
 
 interface CartEntry {
     quantity: number;
